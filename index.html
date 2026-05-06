@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -104,33 +105,37 @@ section{padding:72px 0;position:relative;z-index:1}
 .filter-btn:hover,.filter-btn.active{background:var(--text);color:var(--bg);border-color:var(--text)}
 
 /* CLIENT BLOCKS */
-.client-block{margin-bottom:64px;transition:opacity .3s}
+.client-block{margin-bottom:56px}
 .client-block.hidden{display:none}
-.client-header{display:flex;align-items:baseline;gap:16px;margin-bottom:20px}
+.client-header{display:flex;align-items:baseline;gap:16px;margin-bottom:16px}
 .client-name{font-size:20px;font-weight:400;letter-spacing:-.01em;color:var(--text)}
 .client-tag{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:3px 12px;border-radius:100px}
 .ct-branding{background:rgba(209,122,244,.15);color:#7a00b8}
 .ct-ui{background:rgba(154,245,247,.2);color:#005254}
 .ct-institucional{background:rgba(26,26,26,.08);color:#333}
-.ct-social{background:rgba(255,113,172,.12);color:#b5004a}
 
-/* MEDIA GRID inside each client */
-.media-grid{display:grid;gap:10px}
-.mg-1{grid-template-columns:1fr}
-.mg-2{grid-template-columns:1fr 1fr}
-.mg-3{grid-template-columns:1fr 1fr 1fr}
-.mg-auto{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+/* STRIP — horizontal scroll row, all same height, images cropped */
+.strip{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:4px}
+.strip::-webkit-scrollbar{display:none}
+.strip-item{flex:0 0 auto;height:280px;border-radius:12px;overflow:hidden;cursor:pointer;position:relative;background:rgba(255,255,255,.25);border:1px solid var(--glass-border)}
+.strip-item img,.strip-item video{height:100%;width:auto;display:block;object-fit:cover;transition:transform .35s ease}
+.strip-item:hover img,.strip-item:hover video{transform:scale(1.04)}
+.strip-item .si-label{position:absolute;bottom:0;left:0;right:0;padding:8px 12px;background:linear-gradient(to top,rgba(10,10,10,.72),transparent);color:#fff;font-size:11px;font-weight:500;opacity:0;transition:opacity .25s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.strip-item:hover .si-label{opacity:1}
 
-.media-card{position:relative;overflow:hidden;border-radius:14px;background:rgba(255,255,255,.3);border:1px solid var(--glass-border);cursor:pointer}
-.media-card img{width:100%;display:block;object-fit:cover;transition:transform .4s ease}
-.media-card video{width:100%;display:block;object-fit:cover;transition:transform .4s ease}
-.media-card:hover img,.media-card:hover video{transform:scale(1.03)}
-.media-card .mc-label{position:absolute;bottom:0;left:0;right:0;padding:10px 14px;background:linear-gradient(to top,rgba(20,20,20,.7),transparent);color:#fff;font-size:11px;font-weight:500;opacity:0;transition:opacity .3s}
-.media-card:hover .mc-label{opacity:1}
+/* wider items for landscape images */
+.strip-item.wide{height:280px}
 
-/* tall card for hero image of each client */
-.card-tall img,.card-tall video{max-height:480px}
-.card-sm img,.card-sm video{max-height:260px}
+/* LIGHTBOX */
+.lb{display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,.92);align-items:center;justify-content:center;padding:20px}
+.lb.open{display:flex}
+.lb-inner{position:relative;max-width:90vw;max-height:90vh;display:flex;align-items:center;justify-content:center}
+.lb-inner img,.lb-inner video{max-width:90vw;max-height:90vh;object-fit:contain;border-radius:8px;display:block}
+.lb-close{position:fixed;top:20px;right:24px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer;line-height:1;opacity:.7;transition:opacity .2s}
+.lb-close:hover{opacity:1}
+.lb-prev,.lb-next{position:fixed;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.1);border:none;color:#fff;font-size:22px;cursor:pointer;padding:16px 12px;border-radius:8px;transition:background .2s}
+.lb-prev{left:12px}.lb-next{right:12px}
+.lb-prev:hover,.lb-next:hover{background:rgba(255,255,255,.22)}
 
 /* ── CONTACTO ── */
 .contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
@@ -277,13 +282,22 @@ footer{position:relative;z-index:1;padding:28px 40px;display:flex;justify-conten
     </div>
   </section>
 
+  <!-- LIGHTBOX -->
+  <div class="lb" id="lb">
+    <button class="lb-close" id="lb-close">✕</button>
+    <button class="lb-prev" id="lb-prev">&#8249;</button>
+    <div class="lb-inner" id="lb-inner"></div>
+    <button class="lb-next" id="lb-next">&#8250;</button>
+  </div>
+
   <!-- PORTFOLIO -->
   <section id="portfolio">
     <p class="sec-label">Portfolio</p>
     <div class="filter-row">
       <button class="filter-btn active" data-filter="all">Todos</button>
       <button class="filter-btn" data-filter="branding">Branding</button>
-      <button class="filter-btn" data-filter="ui">Dirección de Arte</button>
+      <button class="filter-btn" data-filter="erenzia">Erenzia</button>
+      <button class="filter-btn" data-filter="amazon">Amazon Music</button>
       <button class="filter-btn" data-filter="institucional">Institucional</button>
     </div>
 
@@ -293,20 +307,16 @@ footer{position:relative;z-index:1;padding:28px 40px;display:flex;justify-conten
         <span class="client-name">Lidherma</span>
         <span class="client-tag ct-branding">Branding · Art Direction</span>
       </div>
-      <div class="media-grid mg-2" style="margin-bottom:10px">
-        <div class="media-card card-tall"><img src="img/lidherma/lidherma-1.jpg" alt="Lidherma"><div class="mc-label">Identidad Visual</div></div>
-        <div class="media-grid mg-1" style="gap:10px">
-          <div class="media-card"><img src="img/lidherma/lidherma-2.jpg" alt="Lidherma"><div class="mc-label">Campaña</div></div>
-          <div class="media-card"><img src="img/lidherma/lidherma-3.jpg" alt="Lidherma"><div class="mc-label">Piezas Gráficas</div></div>
-        </div>
-      </div>
-      <div class="media-grid mg-3">
-        <div class="media-card card-sm"><img src="img/lidherma/lidherma-4.jpg" alt="Lidherma"><div class="mc-label">Social Media</div></div>
-        <div class="media-card card-sm"><img src="img/lidherma/lidherma-5.jpg" alt="Lidherma"><div class="mc-label">Key Visual</div></div>
-        </div>
-        <div class="media-card card-sm"><img src="img/lidherma/lidherma-7.jpg" alt="Lidherma"><div class="mc-label">Art Direction</div></div>
-        <div class="media-card card-sm"><img src="img/lidherma/lidherma-8.jpg" alt="Lidherma"><div class="mc-label">Comunicación</div></div>
-        <div class="media-card card-sm"><img src="img/lidherma/lidherma-9.jpg" alt="Lidherma"><div class="mc-label">Campaña</div></div>
+      <div class="strip" data-gallery="lidherma">
+        <div class="strip-item" data-src="img/lidherma/l-1.jpg" data-type="img"><img src="img/lidherma/l-1.jpg" alt="Lidherma"><div class="si-label">Identidad</div></div>
+        <div class="strip-item" data-src="img/lidherma/l-2.jpg" data-type="img"><img src="img/lidherma/l-2.jpg" alt="Lidherma"><div class="si-label">Campaña</div></div>
+        <div class="strip-item" data-src="img/lidherma/l-3.jpg" data-type="img"><img src="img/lidherma/l-3.jpg" alt="Lidherma"><div class="si-label">Piezas</div></div>
+        <div class="strip-item" data-src="img/lidherma/l-4.jpg" data-type="img"><img src="img/lidherma/l-4.jpg" alt="Lidherma"><div class="si-label">Social Media</div></div>
+        <div class="strip-item" data-src="img/lidherma/l-5.jpg" data-type="img"><img src="img/lidherma/l-5.jpg" alt="Lidherma"><div class="si-label">Key Visual</div></div>
+        <div class="strip-item" data-src="img/lidherma/l-6.jpg" data-type="img"><img src="img/lidherma/l-6.jpg" alt="Lidherma"><div class="si-label">Diseño</div></div>
+        <div class="strip-item" data-src="img/lidherma/l-7.jpg" data-type="img"><img src="img/lidherma/l-7.jpg" alt="Lidherma"><div class="si-label">Art Direction</div></div>
+        <div class="strip-item" data-src="img/lidherma/l-8.jpg" data-type="img"><img src="img/lidherma/l-8.jpg" alt="Lidherma"><div class="si-label">Editorial</div></div>
+        <div class="strip-item" data-src="img/lidherma/l-9.jpg" data-type="img"><img src="img/lidherma/l-9.jpg" alt="Lidherma"><div class="si-label">Comunicación</div></div>
       </div>
     </div>
 
@@ -316,14 +326,26 @@ footer{position:relative;z-index:1;padding:28px 40px;display:flex;justify-conten
         <span class="client-name">Cafetería Colonial</span>
         <span class="client-tag ct-branding">Branding · Packaging</span>
       </div>
-      <div class="media-grid mg-2" style="margin-bottom:10px">
-        <div class="media-card card-tall"><img src="img/cafeteria-colonial/cc-1.jpg" alt="Cafetería Colonial"><div class="mc-label">Identidad de Marca</div></div>
-        <div class="media-card card-tall"><img src="img/cafeteria-colonial/cc-2.jpg" alt="Cafetería Colonial"><div class="mc-label">Sistema Visual</div></div>
-      </div>
-      <div class="media-grid mg-3">
-        <div class="media-card card-sm"><img src="img/cafeteria-colonial/cc-3.jpg" alt="Cafetería Colonial"><div class="mc-label">Packaging</div></div>
-        <div class="media-card card-sm"><img src="img/cafeteria-colonial/cc-4.jpg" alt="Cafetería Colonial"><div class="mc-label">Piezas Gráficas</div></div>
-        <div class="media-card card-sm"><img src="img/cafeteria-colonial/cc-5.jpg" alt="Cafetería Colonial"><div class="mc-label">Art Direction</div></div>
+      <div class="strip" data-gallery="cafeteria">
+        <div class="strip-item" data-src="img/cafeteria-colonial/cc-1.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-1.jpg" alt="Cafetería Colonial"><div class="si-label">Identidad</div></div>
+        <div class="strip-item" data-src="img/cafeteria-colonial/cc-2.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-2.jpg" alt="Cafetería Colonial"><div class="si-label">Sistema Visual</div></div>
+        <div class="strip-item" data-src="img/cafeteria-colonial/cc-3.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-3.jpg" alt="Cafetería Colonial"><div class="si-label">Packaging</div></div>
+        <div class="strip-item" data-src="img/cafeteria-colonial/cc-4.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-4.jpg" alt="Cafetería Colonial"><div class="si-label">Piezas</div></div>
+        <div class="strip-item" data-src="img/cafeteria-colonial/cc-5.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-5.jpg" alt="Cafetería Colonial"><div class="si-label">Fotografía</div></div>
+        <div class="strip-item" data-src="img/cafeteria-colonial/cc-6.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-6.jpg" alt="Cafetería Colonial"><div class="si-label">Manual</div></div>
+        <div class="strip-item" data-src="img/cafeteria-colonial/cc-7.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-7.jpg" alt="Cafetería Colonial"><div class="si-label">Manual</div></div>
+        <div class="strip-item" data-src="img/cafeteria-colonial/cc-8.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-8.jpg" alt="Cafetería Colonial"><div class="si-label">Manual</div></div>
+        <div class="strip-item" data-src="img/cafeteria-colonial/cc-9.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-9.jpg" alt="Cafetería Colonial"><div class="si-label">Manual</div></div>
+        <div class="strip-item" data-src="img/cafeteria-colonial/cc-10.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-10.jpg" alt="Cafetería Colonial"><div class="si-label">Manual</div></div>
+        <div class="strip-item" data-src="img/cafeteria-colonial/cc-11.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-11.jpg" alt="Cafetería Colonial"><div class="si-label">Manual</div></div>
+        <div class="strip-item" data-src="img/cafeteria-colonial/cc-12.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-12.jpg" alt="Cafetería Colonial"><div class="si-label">Manual</div></div>
+        <div class="strip-item" data-src="img/cafeteria-colonial/cc-13.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-13.jpg" alt="Cafetería Colonial"><div class="si-label">Manual</div></div>
+        <div class="strip-item" data-src="img/cafeteria-colonial/cc-14.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-14.jpg" alt="Cafetería Colonial"><div class="si-label">Manual</div></div>
+        <div class="strip-item" data-src="img/cafeteria-colonial/cc-15.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-15.jpg" alt="Cafetería Colonial"><div class="si-label">Manual</div></div>
+        <div class="strip-item" data-src="img/cafeteria-colonial/cc-16.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-16.jpg" alt="Cafetería Colonial"><div class="si-label">Manual</div></div>
+        <div class="strip-item" data-src="img/cafeteria-colonial/cc-17.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-17.jpg" alt="Cafetería Colonial"><div class="si-label">Manual</div></div>
+        <div class="strip-item" data-src="img/cafeteria-colonial/cc-18.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-18.jpg" alt="Cafetería Colonial"><div class="si-label">Manual</div></div>
+        <div class="strip-item" data-src="img/cafeteria-colonial/cc-19.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-19.jpg" alt="Cafetería Colonial"><div class="si-label">Manual</div></div>
       </div>
     </div>
 
@@ -333,57 +355,54 @@ footer{position:relative;z-index:1;padding:28px 40px;display:flex;justify-conten
         <span class="client-name">Chomba Studio</span>
         <span class="client-tag ct-branding">Branding · Manual de Marca</span>
       </div>
-      <div class="media-grid mg-1">
-        <div class="media-card card-tall"><img src="img/chomba-studio/chomba-1.jpg" alt="Chomba Studio"><div class="mc-label">Manual de Marca</div></div>
+      <div class="strip" data-gallery="chomba">
+        <div class="strip-item" data-src="img/chomba-studio/ch-1.jpg" data-type="img"><img src="img/chomba-studio/ch-1.jpg" alt="Chomba Studio"><div class="si-label">Manual de Marca</div></div>
+        <div class="strip-item" data-src="img/chomba-studio/ch-2.jpg" data-type="img"><img src="img/chomba-studio/ch-2.jpg" alt="Chomba Studio"><div class="si-label">Identidad</div></div>
+        <div class="strip-item" data-src="img/chomba-studio/ch-3.jpg" data-type="img"><img src="img/chomba-studio/ch-3.jpg" alt="Chomba Studio"><div class="si-label">Sistema Visual</div></div>
+        <div class="strip-item" data-src="img/chomba-studio/ch-4.jpg" data-type="img"><img src="img/chomba-studio/ch-4.jpg" alt="Chomba Studio"><div class="si-label">Tipografía</div></div>
+        <div class="strip-item" data-src="img/chomba-studio/ch-5.jpg" data-type="img"><img src="img/chomba-studio/ch-5.jpg" alt="Chomba Studio"><div class="si-label">Paleta</div></div>
+        <div class="strip-item" data-src="img/chomba-studio/ch-6.jpg" data-type="img"><img src="img/chomba-studio/ch-6.jpg" alt="Chomba Studio"><div class="si-label">Aplicaciones</div></div>
+        <div class="strip-item" data-src="img/chomba-studio/ch-7.jpg" data-type="img"><img src="img/chomba-studio/ch-7.jpg" alt="Chomba Studio"><div class="si-label">Logotipo</div></div>
+        <div class="strip-item" data-src="img/chomba-studio/ch-8.jpg" data-type="img"><img src="img/chomba-studio/ch-8.jpg" alt="Chomba Studio"><div class="si-label">Overview</div></div>
       </div>
     </div>
 
     <!-- ERENZIA -->
-    <div class="client-block" data-cat="ui">
+    <div class="client-block" data-cat="erenzia">
       <div class="client-header">
         <span class="client-name">Erenzia Beauty</span>
-        <span class="client-tag ct-ui">Dirección de Arte · Motion</span>
+        <span class="client-tag ct-ui">Dirección de Arte · Graphic Design · UX</span>
       </div>
-      <div class="media-grid mg-2" style="margin-bottom:10px">
-        <div class="media-card card-tall">
-          <video autoplay muted loop playsinline src="img/erenzia/erenzia-1.mp4"></video>
-          <div class="mc-label">Campaña · Idea 1</div>
-        </div>
-        <div class="media-card card-tall">
-          <video autoplay muted loop playsinline src="img/erenzia/erenzia-4.mp4"></video>
-          <div class="mc-label">Cyber Monday</div>
-        </div>
-      </div>
-      <div class="media-grid mg-3">
-        <div class="media-card card-sm">
-          <video autoplay muted loop playsinline src="img/erenzia/erenzia-2.mp4"></video>
-          <div class="mc-label">Black Friday · v1</div>
-        </div>
-        <div class="media-card card-sm">
-          <video autoplay muted loop playsinline src="img/erenzia/erenzia-3.mp4"></video>
-          <div class="mc-label">Black Friday · v2</div>
-        </div>
-        <div class="media-card card-sm">
-          <video autoplay muted loop playsinline src="img/erenzia/erenzia-5.mp4"></video>
-          <div class="mc-label">Idea 5</div>
-        </div>
+      <div class="strip" data-gallery="erenzia">
+        <div class="strip-item" data-src="img/erenzia-arte/ea-1.mp4" data-type="video"><video autoplay muted loop playsinline src="img/erenzia-arte/ea-1.mp4"></video><div class="si-label">Idea 1</div></div>
+        <div class="strip-item" data-src="img/erenzia-arte/ea-2.mp4" data-type="video"><video autoplay muted loop playsinline src="img/erenzia-arte/ea-2.mp4"></video><div class="si-label">Black Friday v1</div></div>
+        <div class="strip-item" data-src="img/erenzia-arte/ea-3.mp4" data-type="video"><video autoplay muted loop playsinline src="img/erenzia-arte/ea-3.mp4"></video><div class="si-label">Black Friday v2</div></div>
+        <div class="strip-item" data-src="img/erenzia-arte/ea-4.mp4" data-type="video"><video autoplay muted loop playsinline src="img/erenzia-arte/ea-4.mp4"></video><div class="si-label">Cyber Monday</div></div>
+        <div class="strip-item" data-src="img/erenzia-arte/ea-5.mp4" data-type="video"><video autoplay muted loop playsinline src="img/erenzia-arte/ea-5.mp4"></video><div class="si-label">Idea 5</div></div>
+        <div class="strip-item" data-src="img/erenzia-graphic/eg-drops.mp4" data-type="video"><video autoplay muted loop playsinline src="img/erenzia-graphic/eg-drops.mp4"></video><div class="si-label">Drops</div></div>
+        <div class="strip-item" data-src="img/erenzia-graphic/eg-1.jpg" data-type="img"><img src="img/erenzia-graphic/eg-1.jpg" alt="Erenzia"><div class="si-label">14-12</div></div>
+        <div class="strip-item" data-src="img/erenzia-graphic/eg-2.jpg" data-type="img"><img src="img/erenzia-graphic/eg-2.jpg" alt="Erenzia"><div class="si-label">21-12</div></div>
+        <div class="strip-item" data-src="img/erenzia-graphic/eg-3.jpg" data-type="img"><img src="img/erenzia-graphic/eg-3.jpg" alt="Erenzia"><div class="si-label">Earth Day</div></div>
+        <div class="strip-item" data-src="img/erenzia-graphic/eg-4.jpg" data-type="img"><img src="img/erenzia-graphic/eg-4.jpg" alt="Erenzia"><div class="si-label">Brand Intro S1</div></div>
+        <div class="strip-item" data-src="img/erenzia-graphic/eg-5.jpg" data-type="img"><img src="img/erenzia-graphic/eg-5.jpg" alt="Erenzia"><div class="si-label">Brand Intro S3</div></div>
+        <div class="strip-item" data-src="img/erenzia-graphic/eg-6.jpg" data-type="img"><img src="img/erenzia-graphic/eg-6.jpg" alt="Erenzia"><div class="si-label">Brand Intro S4</div></div>
+        <div class="strip-item" data-src="img/erenzia-graphic/eg-7.jpg" data-type="img"><img src="img/erenzia-graphic/eg-7.jpg" alt="Erenzia"><div class="si-label">January Hydrate</div></div>
+        <div class="strip-item" data-src="img/erenzia-graphic/eg-8.jpg" data-type="img"><img src="img/erenzia-graphic/eg-8.jpg" alt="Erenzia"><div class="si-label">January Nourish</div></div>
+        <div class="strip-item" data-src="img/erenzia-graphic/eg-9.jpg" data-type="img"><img src="img/erenzia-graphic/eg-9.jpg" alt="Erenzia"><div class="si-label">Lunar New Year</div></div>
+        <div class="strip-item" data-src="img/erenzia-graphic/eg-10.jpg" data-type="img"><img src="img/erenzia-graphic/eg-10.jpg" alt="Erenzia"><div class="si-label">Post 2-12</div></div>
+        <div class="strip-item" data-src="img/erenzia-graphic/eg-11.jpg" data-type="img"><img src="img/erenzia-graphic/eg-11.jpg" alt="Erenzia"><div class="si-label">Post 8-12</div></div>
+        <div class="strip-item" data-src="img/erenzia-ux/eu-1.jpg" data-type="img"><img src="img/erenzia-ux/eu-1.jpg" alt="Erenzia UX"><div class="si-label">Quiz UX</div></div>
       </div>
     </div>
 
     <!-- AMAZON MUSIC -->
-    <div class="client-block" data-cat="ui">
+    <div class="client-block" data-cat="amazon">
       <div class="client-header">
         <span class="client-name">Amazon Music</span>
         <span class="client-tag ct-ui">Dirección de Arte · Key Visuals</span>
       </div>
-      <div class="media-grid mg-2" style="margin-bottom:10px">
-        <div class="media-card card-tall"><img src="img/amazon-music/am-1.jpg" alt="Amazon Music"><div class="mc-label">Playful</div></div>
-        <div class="media-card card-tall"><img src="img/amazon-music/am-5.jpg" alt="Amazon Music"><div class="mc-label">The Star Who Creates Stars</div></div>
-      </div>
-      <div class="media-grid mg-3">
-        <div class="media-card card-sm"><img src="img/amazon-music/am-2.jpg" alt="Amazon Music"><div class="mc-label">Playful v2</div></div>
-        <div class="media-card card-sm"><img src="img/amazon-music/am-3.jpg" alt="Amazon Music"><div class="mc-label">Straight v2</div></div>
-        <div class="media-card card-sm"><img src="img/amazon-music/am-4.jpg" alt="Amazon Music"><div class="mc-label">Straight</div></div>
+      <div class="strip" data-gallery="amazon">
+        <div class="strip-item" data-src="img/amazon-music/am-1.jpg" data-type="img"><img src="img/amazon-music/am-1.jpg" alt="Amazon Music"><div class="si-label">Playful v2</div></div>
       </div>
     </div>
 
@@ -393,17 +412,15 @@ footer{position:relative;z-index:1;padding:28px 40px;display:flex;justify-conten
         <span class="client-name">Municipalidad de Pilar</span>
         <span class="client-tag ct-institucional">Comunicación Institucional</span>
       </div>
-      <div class="media-grid mg-2" style="margin-bottom:10px">
-        <div class="media-card card-tall"><img src="img/municipalidad/muni-1.jpg" alt="Municipalidad de Pilar"><div class="mc-label">Identidad Institucional</div></div>
-        <div class="media-card card-tall"><img src="img/municipalidad/muni-2.jpg" alt="Municipalidad de Pilar"><div class="mc-label">Campaña</div></div>
-      </div>
-      <div class="media-grid mg-3">
-        <div class="media-card card-sm"><img src="img/municipalidad/muni-3.jpg" alt="Municipalidad de Pilar"><div class="mc-label">Piezas Gráficas</div></div>
-        <div class="media-card card-sm"><img src="img/municipalidad/muni-4.jpg" alt="Municipalidad de Pilar"><div class="mc-label">Diseño Editorial</div></div>
-        <div class="media-card card-sm"><img src="img/municipalidad/muni-5.jpg" alt="Municipalidad de Pilar"><div class="mc-label">Social Media</div></div>
-        <div class="media-card card-sm"><img src="img/municipalidad/muni-6.jpg" alt="Municipalidad de Pilar"><div class="mc-label">Art Direction</div></div>
-        <div class="media-card card-sm"><img src="img/municipalidad/muni-7.jpg" alt="Municipalidad de Pilar"><div class="mc-label">Identidad</div></div>
-        <div class="media-card card-sm"><img src="img/municipalidad/muni-8.jpg" alt="Municipalidad de Pilar"><div class="mc-label">Key Visual</div></div>
+      <div class="strip" data-gallery="municipalidad">
+        <div class="strip-item" data-src="img/municipalidad/mu-1.jpg" data-type="img"><img src="img/municipalidad/mu-1.jpg" alt="Municipalidad de Pilar"><div class="si-label">Identidad</div></div>
+        <div class="strip-item" data-src="img/municipalidad/mu-2.jpg" data-type="img"><img src="img/municipalidad/mu-2.jpg" alt="Municipalidad de Pilar"><div class="si-label">Campaña</div></div>
+        <div class="strip-item" data-src="img/municipalidad/mu-3.jpg" data-type="img"><img src="img/municipalidad/mu-3.jpg" alt="Municipalidad de Pilar"><div class="si-label">Piezas</div></div>
+        <div class="strip-item" data-src="img/municipalidad/mu-4.jpg" data-type="img"><img src="img/municipalidad/mu-4.jpg" alt="Municipalidad de Pilar"><div class="si-label">Editorial</div></div>
+        <div class="strip-item" data-src="img/municipalidad/mu-5.jpg" data-type="img"><img src="img/municipalidad/mu-5.jpg" alt="Municipalidad de Pilar"><div class="si-label">Social Media</div></div>
+        <div class="strip-item" data-src="img/municipalidad/mu-6.jpg" data-type="img"><img src="img/municipalidad/mu-6.jpg" alt="Municipalidad de Pilar"><div class="si-label">Art Direction</div></div>
+        <div class="strip-item" data-src="img/municipalidad/mu-7.jpg" data-type="img"><img src="img/municipalidad/mu-7.jpg" alt="Municipalidad de Pilar"><div class="si-label">Identidad</div></div>
+        <div class="strip-item" data-src="img/municipalidad/mu-8.jpg" data-type="img"><img src="img/municipalidad/mu-8.jpg" alt="Municipalidad de Pilar"><div class="si-label">Key Visual</div></div>
       </div>
     </div>
 
@@ -469,6 +486,54 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     document.querySelectorAll('.client-block').forEach(block => {
       block.classList.toggle('hidden', f !== 'all' && block.dataset.cat !== f);
     });
+  });
+});
+
+// Lightbox
+let lbItems = [], lbIdx = 0;
+const lb = document.getElementById('lb');
+const lbInner = document.getElementById('lb-inner');
+
+function lbOpen(items, idx) {
+  lbItems = items; lbIdx = idx;
+  lbRender();
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function lbClose() {
+  lb.classList.remove('open');
+  document.body.style.overflow = '';
+  lbInner.innerHTML = '';
+}
+
+function lbRender() {
+  const item = lbItems[lbIdx];
+  if (item.type === 'video') {
+    lbInner.innerHTML = `<video src="${item.src}" controls autoplay style="max-width:90vw;max-height:90vh;border-radius:8px"></video>`;
+  } else {
+    lbInner.innerHTML = `<img src="${item.src}" style="max-width:90vw;max-height:90vh;object-fit:contain;border-radius:8px">`;
+  }
+}
+
+document.getElementById('lb-close').addEventListener('click', lbClose);
+lb.addEventListener('click', e => { if (e.target === lb) lbClose(); });
+document.getElementById('lb-prev').addEventListener('click', () => { lbIdx = (lbIdx - 1 + lbItems.length) % lbItems.length; lbRender(); });
+document.getElementById('lb-next').addEventListener('click', () => { lbIdx = (lbIdx + 1) % lbItems.length; lbRender(); });
+document.addEventListener('keydown', e => {
+  if (!lb.classList.contains('open')) return;
+  if (e.key === 'Escape') lbClose();
+  if (e.key === 'ArrowLeft') { lbIdx = (lbIdx - 1 + lbItems.length) % lbItems.length; lbRender(); }
+  if (e.key === 'ArrowRight') { lbIdx = (lbIdx + 1) % lbItems.length; lbRender(); }
+});
+
+// Wire up strips
+document.querySelectorAll('.strip').forEach(strip => {
+  const items = [...strip.querySelectorAll('.strip-item')].map(el => ({
+    src: el.dataset.src, type: el.dataset.type
+  }));
+  strip.querySelectorAll('.strip-item').forEach((el, i) => {
+    el.addEventListener('click', () => lbOpen(items, i));
   });
 });
 
