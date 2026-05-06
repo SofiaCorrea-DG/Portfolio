@@ -80,8 +80,8 @@ section{padding:72px 0;position:relative;z-index:1;border-top:1px solid rgba(0,0
 .skill-item:last-child{border-radius:0 0 14px 0}
 .sk-name{font-size:12px;font-weight:500;color:var(--text);margin-bottom:7px}
 .sk-bar{height:3px;background:rgba(0,0,0,.08);border-radius:2px;overflow:hidden}
-.sk-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--lila),var(--rosa));transform:scaleX(0);transform-origin:left;transition:transform 1.4s ease-out}
-.sk-fill.animated{transform:scaleX(1)}
+.sk-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--lila),var(--rosa));width:0%;transition:width 1.4s ease-out}
+.sk-fill.animated{width:var(--w)!important}
 
 /* ── SERVICIOS ── */
 .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
@@ -241,15 +241,15 @@ footer{position:relative;z-index:1;padding:28px 40px;display:flex;justify-conten
         </div>
       </div>
       <div class="skills-grid">
-        <div class="skill-item"><div class="sk-name">Adobe Illustrator</div><div class="sk-bar"><div class="sk-fill" data-w="0.95"></div></div></div>
-        <div class="skill-item"><div class="sk-name">Adobe Photoshop</div><div class="sk-bar"><div class="sk-fill" data-w="0.93"></div></div></div>
-        <div class="skill-item"><div class="sk-name">Premiere Pro</div><div class="sk-bar"><div class="sk-fill" data-w="0.88"></div></div></div>
-        <div class="skill-item"><div class="sk-name">After Effects</div><div class="sk-bar"><div class="sk-fill" data-w="0.80"></div></div></div>
-        <div class="skill-item"><div class="sk-name">UX · UI Design</div><div class="sk-bar"><div class="sk-fill" data-w="0.82"></div></div></div>
-        <div class="skill-item"><div class="sk-name">Ilustración Digital</div><div class="sk-bar"><div class="sk-fill" data-w="0.78"></div></div></div>
-        <div class="skill-item"><div class="sk-name">IA Generativa</div><div class="sk-bar"><div class="sk-fill" data-w="0.85"></div></div></div>
-        <div class="skill-item"><div class="sk-name">e-Mail Marketing</div><div class="sk-bar"><div class="sk-fill" data-w="0.75"></div></div></div>
-        <div class="skill-item"><div class="sk-name">Inglés Avanzado</div><div class="sk-bar"><div class="sk-fill" data-w="0.90"></div></div></div>
+        <div class="skill-item"><div class="sk-name">Adobe Illustrator</div><div class="sk-bar"><div class="sk-fill" style="--w:95%"></div></div></div>
+        <div class="skill-item"><div class="sk-name">Adobe Photoshop</div><div class="sk-bar"><div class="sk-fill" style="--w:93%"></div></div></div>
+        <div class="skill-item"><div class="sk-name">Premiere Pro</div><div class="sk-bar"><div class="sk-fill" style="--w:88%"></div></div></div>
+        <div class="skill-item"><div class="sk-name">After Effects</div><div class="sk-bar"><div class="sk-fill" style="--w:80%"></div></div></div>
+        <div class="skill-item"><div class="sk-name">UX · UI Design</div><div class="sk-bar"><div class="sk-fill" style="--w:82%"></div></div></div>
+        <div class="skill-item"><div class="sk-name">Ilustración Digital</div><div class="sk-bar"><div class="sk-fill" style="--w:78%"></div></div></div>
+        <div class="skill-item"><div class="sk-name">IA Generativa</div><div class="sk-bar"><div class="sk-fill" style="--w:85%"></div></div></div>
+        <div class="skill-item"><div class="sk-name">e-Mail Marketing</div><div class="sk-bar"><div class="sk-fill" style="--w:75%"></div></div></div>
+        <div class="skill-item"><div class="sk-name">Inglés Avanzado</div><div class="sk-bar"><div class="sk-fill" style="--w:90%"></div></div></div>
       </div>
     </div>
   </section>
@@ -403,7 +403,9 @@ footer{position:relative;z-index:1;padding:28px 40px;display:flex;justify-conten
       </div>
       <div class="contact-cards">
         <a class="c-card" href="mailto:tamarasofiac@gmail.com">
-          <div class="c-dot cd-rosa">✉</div>
+          <div class="c-dot cd-rosa">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </div>
           <div><div class="c-label">Email</div><div class="c-val">tamarasofiac@gmail.com</div></div>
         </a>
         <a class="c-card" href="https://wa.me/5491158566838" target="_blank">
@@ -413,7 +415,9 @@ footer{position:relative;z-index:1;padding:28px 40px;display:flex;justify-conten
           <div><div class="c-label">WhatsApp</div><div class="c-val">+54 11 5856 6838</div></div>
         </a>
         <a class="c-card" href="https://www.linkedin.com/in/sofia-china-correa/" target="_blank">
-          <div class="c-dot cd-rosa" style="font-size:10px;font-weight:700">in</div>
+          <div class="c-dot cd-rosa">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#1a1a1a"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </div>
           <div><div class="c-label">LinkedIn</div><div class="c-val">Sofía Correa</div></div>
         </a>
       </div>
@@ -455,10 +459,6 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
 });
 
 // Skill bars — animate on scroll into view
-const fills = document.querySelectorAll('.sk-fill');
-fills.forEach(el => {
-  el.style.width = (parseFloat(el.dataset.w) * 100) + '%';
-});
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
