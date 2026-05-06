@@ -306,6 +306,7 @@ footer{position:relative;z-index:1;padding:28px 40px;display:flex;justify-conten
       <button class="filter-btn" data-filter="branding">Branding</button>
       <button class="filter-btn" data-filter="erenzia">Erenzia</button>
       <button class="filter-btn" data-filter="amazon">Amazon Music</button>
+      <button class="filter-btn" data-filter="cancel">Cancel the World Cup</button>
     </div>
 
     <!-- CAFETERÍA COLONIAL -->
@@ -364,6 +365,33 @@ footer{position:relative;z-index:1;padding:28px 40px;display:flex;justify-conten
           <div class="strip-item" data-src="img/erenzia-graphic/eg-10.jpg" data-type="img"><img src="img/erenzia-graphic/eg-10.jpg" alt="Erenzia"><div class="si-label">Post 2-12</div></div>
           <div class="strip-item" data-src="img/erenzia-graphic/eg-11.jpg" data-type="img"><img src="img/erenzia-graphic/eg-11.jpg" alt="Erenzia"><div class="si-label">Post 8-12</div></div>
           <div class="strip-item" data-src="img/erenzia-ux/eu-1.jpg" data-type="img"><img src="img/erenzia-ux/eu-1.jpg" alt="Erenzia UX"><div class="si-label">Quiz UX</div></div>
+        </div>
+        <button class="strip-arrow right" data-dir="right">&#8250;</button>
+      </div>
+    </div>
+
+    <!-- CANCEL THE WORLD CUP -->
+    <div class="client-block" data-cat="cancel">
+      <div class="client-header">
+        <span class="client-name">Cancel the World Cup</span>
+        <span class="client-tag ct-ui">Campaña · BeautifulBeast Ad</span>
+      </div>
+      <div class="strip-wrap">
+        <button class="strip-arrow left" data-dir="left">&#8249;</button>
+        <div class="strip" data-gallery="cancel">
+          <div class="strip-item" data-src="https://www.adsoftheworld.com/campaigns/cancel-the-world-cup" data-type="link">
+            <div style="height:100%;width:320px;background:linear-gradient(135deg,#1a1a1a,#333);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:20px">
+              <div style="font-size:32px">▶</div>
+              <div style="color:#fff;font-size:13px;font-weight:500;text-align:center;letter-spacing:.04em">Ver Case Study</div>
+              <div style="color:rgba(255,255,255,.5);font-size:10px;text-align:center">Ads of the World</div>
+            </div>
+            <div class="si-label">Case Video</div>
+          </div>
+          <div class="strip-item" data-src="img/cancel-mundial/cw-1.jpg" data-type="img"><img src="img/cancel-mundial/cw-1.jpg" alt="Cancel the World Cup"><div class="si-label">Tanto enojo</div></div>
+          <div class="strip-item" data-src="img/cancel-mundial/cw-2.jpg" data-type="img"><img src="img/cancel-mundial/cw-2.jpg" alt="Cancel the World Cup"><div class="si-label">Corazón, corazón</div></div>
+          <div class="strip-item" data-src="img/cancel-mundial/cw-3.jpg" data-type="img"><img src="img/cancel-mundial/cw-3.jpg" alt="Cancel the World Cup"><div class="si-label">¿Locura cancelar el mundial?</div></div>
+          <div class="strip-item" data-src="img/cancel-mundial/cw-4.jpg" data-type="img"><img src="img/cancel-mundial/cw-4.jpg" alt="Cancel the World Cup"><div class="si-label">ECG · Gol Enzo Fernández</div></div>
+          <div class="strip-item" data-src="img/cancel-mundial/cw-5.jpg" data-type="img"><img src="img/cancel-mundial/cw-5.jpg" alt="Cancel the World Cup"><div class="si-label">ARG vs Arabia</div></div>
         </div>
         <button class="strip-arrow right" data-dir="right">&#8250;</button>
       </div>
@@ -515,6 +543,11 @@ function lbClose() {
 
 function lbRender() {
   const item = lbItems[lbIdx];
+  if (item.type === 'link') {
+    lbClose();
+    window.open(item.src, '_blank');
+    return;
+  }
   if (item.type === 'video') {
     lbInner.innerHTML = `<video src="${item.src}" controls autoplay style="max-width:90vw;max-height:90vh;border-radius:8px"></video>`;
   } else {
