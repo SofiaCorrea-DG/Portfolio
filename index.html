@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sofía Correa — Creative Director</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--rosa:#ff71ac;--celeste:#9af5f7;--lila:#d17af4;--bg:#e6e6e6;--text:#1a1a1a;--muted:#666;--glass:rgba(255,255,255,0.38);--glass-border:rgba(255,255,255,0.55)}
+html{scroll-behavior:smooth}
+body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+
+/* ── BLOBS ── */
+.blobs{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:0.5}
+.b1{width:500px;height:500px;background:var(--lila);top:-160px;right:-120px;animation:f1 14s ease-in-out infinite}
+.b2{width:380px;height:380px;background:var(--celeste);bottom:0;left:-100px;animation:f2 17s ease-in-out infinite}
+.b3{width:300px;height:300px;background:var(--rosa);bottom:8%;left:18%;animation:f3 11s ease-in-out infinite}
+@keyframes f1{0%,100%{transform:translate(0,0)}50%{transform:translate(-25px,35px)}}
+@keyframes f2{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-25px)}}
+@keyframes f3{0%,100%{transform:translate(0,0)}33%{transform:translate(20px,-15px)}66%{transform:translate(-12px,20px)}}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:20px 48px;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);background:rgba(230,230,230,0.6);border-bottom:1px solid rgba(255,255,255,0.4)}
+.nav-logo{font-size:14px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-size:12px;color:var(--muted);text-decoration:none;letter-spacing:0.06em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--rosa)}
+
+/* hamburger */
+.nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.nav-toggle span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:all .3s}
+.nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-toggle.open span:nth-child(2){opacity:0}
+.nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+.mobile-menu{display:none;position:fixed;top:61px;left:0;right:0;z-index:99;background:rgba(230,230,230,0.97);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,0.4);padding:24px 24px 28px;flex-direction:column;gap:20px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:15px;color:var(--text);text-decoration:none;letter-spacing:0.06em;text-transform:uppercase;font-weight:400}
+
+/* ── PAGE ── */
+.page{position:relative;z-index:1;max-width:960px;margin:0 auto;padding:0 40px}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding-top:80px}
+.hero-tag{font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:24px}
+.hero h1{font-size:clamp(52px,10vw,104px);font-weight:300;line-height:.95;letter-spacing:-.03em;margin-bottom:8px}
+.hero h1 em{font-style:normal;color:transparent;-webkit-text-stroke:1.5px var(--text)}
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin:28px 0}
+.pill{padding:6px 15px;border-radius:100px;font-size:11px;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;border:1px solid transparent}
+.pr{background:rgba(255,113,172,.12);border-color:rgba(255,113,172,.35);color:#b5004a}
+.pl{background:rgba(209,122,244,.12);border-color:rgba(209,122,244,.35);color:#7a00b8}
+.pc{background:rgba(154,245,247,.18);border-color:rgba(154,245,247,.45);color:#007072}
+.hero-bio{max-width:480px;font-size:15px;line-height:1.75;color:var(--muted)}
+.hero-bio strong{color:var(--text);font-weight:500}
+.hero-cta{margin-top:36px}
+.btn{display:inline-block;padding:13px 30px;border-radius:100px;font-size:12px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;transition:all .2s;cursor:pointer;border:none}
+.btn-primary{background:var(--text);color:var(--bg)}
+.btn-primary:hover{background:var(--rosa);color:#fff}
+
+/* ── SECTIONS ── */
+section{padding:72px 0;position:relative;z-index:1;border-top:1px solid rgba(0,0,0,.08)}
+.sec-label{font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:40px;display:flex;align-items:center;gap:12px}
+.sec-label::after{content:'';flex:1;height:1px;background:rgba(0,0,0,.1)}
+.sec-title{font-size:clamp(28px,4vw,44px);font-weight:300;letter-spacing:-.02em;margin-bottom:16px}
+
+/* ── SOBRE MI ── */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.about-text{font-size:14px;line-height:1.8;color:var(--muted)}
+.about-text strong{color:var(--text);font-weight:500}
+.about-text p+p{margin-top:14px}
+
+/* skills grid 3 col */
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.skill-item{padding:18px 20px;background:var(--glass);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--glass-border);transition:background .2s}
+.skill-item:hover{background:rgba(255,255,255,.55)}
+.skill-item:nth-child(1){border-radius:14px 0 0 0}
+.skill-item:nth-child(3){border-radius:0 14px 0 0}
+.skill-item:nth-last-child(3){border-radius:0 0 0 14px}
+.skill-item:last-child{border-radius:0 0 14px 0}
+.sk-name{font-size:12px;font-weight:500;color:var(--text);margin-bottom:7px}
+.sk-bar{height:3px;background:rgba(0,0,0,.08);border-radius:2px;overflow:hidden}
+.sk-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--lila),var(--rosa));transform:scaleX(0);transform-origin:left;transition:transform 1.4s ease-out}
+.sk-fill.animated{transform:scaleX(1)}
+
+/* ── SERVICIOS ── */
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.srv{padding:24px 22px;background:var(--glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--glass-border);transition:background .2s}
+.srv:hover{background:rgba(255,255,255,.55)}
+.srv:nth-child(1){border-radius:14px 0 0 0}
+.srv:nth-child(3){border-radius:0 14px 0 0}
+.srv:nth-last-child(3){border-radius:0 0 0 14px}
+.srv:last-child{border-radius:0 0 14px 0}
+.srv-icon{width:32px;height:32px;border-radius:50%;margin-bottom:14px;display:flex;align-items:center;justify-content:center;font-size:13px}
+.si-rosa{background:rgba(255,113,172,.15)}
+.si-lila{background:rgba(209,122,244,.15)}
+.si-celeste{background:rgba(154,245,247,.2)}
+.si-mix{background:linear-gradient(135deg,rgba(255,113,172,.12),rgba(209,122,244,.12))}
+.srv-name{font-size:13px;font-weight:500;margin-bottom:5px}
+.srv-desc{font-size:12px;color:var(--muted);line-height:1.6}
+
+/* ── PORTFOLIO ── */
+.filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
+.filter-btn{padding:7px 16px;border-radius:100px;font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;border:1px solid rgba(0,0,0,.12);background:transparent;cursor:pointer;transition:all .2s;color:var(--muted)}
+.filter-btn:hover,.filter-btn.active{background:var(--text);color:var(--bg);border-color:var(--text)}
+
+.masonry{columns:3;column-gap:10px}
+.m-item{break-inside:avoid;margin-bottom:10px;position:relative;overflow:hidden;border-radius:12px;cursor:pointer;background:rgba(255,255,255,.3);border:1px solid var(--glass-border);transition:opacity .3s}
+.m-item.hidden{display:none}
+.m-placeholder{width:100%;background:linear-gradient(135deg,rgba(255,255,255,.5),rgba(255,255,255,.2));display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;color:rgba(0,0,0,.2);font-size:10px;letter-spacing:.06em;text-transform:uppercase;transition:transform .4s ease}
+.m-item img{width:100%;display:block;object-fit:cover;transition:transform .4s ease}
+.m-item:hover .m-placeholder,
+.m-item:hover img{transform:scale(1.04)}
+.m-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(20,20,20,.78) 0%,transparent 55%);opacity:0;transition:opacity .3s;display:flex;flex-direction:column;justify-content:flex-end;padding:16px}
+.m-item:hover .m-overlay{opacity:1}
+.m-client{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:2px}
+.m-title{font-size:13px;font-weight:500;color:#fff}
+.m-cat{display:inline-block;margin-top:5px;padding:3px 10px;border-radius:100px;font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.cat-branding{background:rgba(209,122,244,.4);color:#fff}
+.cat-packaging{background:rgba(255,113,172,.4);color:#fff}
+.cat-social{background:rgba(154,245,247,.45);color:#005254}
+.cat-ui{background:rgba(255,255,255,.28);color:#fff}
+.cat-institucional{background:rgba(26,26,26,.45);color:#fff}
+
+/* ── CONTACTO ── */
+.contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+.contact-intro{font-size:14px;line-height:1.8;color:var(--muted)}
+.contact-intro strong{color:var(--text);font-weight:500}
+.contact-cards{display:flex;flex-direction:column;gap:10px}
+.c-card{padding:20px 24px;background:var(--glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--glass-border);border-radius:14px;text-decoration:none;color:inherit;transition:background .2s,transform .2s;display:flex;align-items:center;gap:16px}
+.c-card:hover{background:rgba(255,255,255,.55);transform:translateX(4px)}
+.c-dot{width:36px;height:36px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px}
+.cd-rosa{background:rgba(255,113,172,.15)}
+.cd-lila{background:rgba(209,122,244,.15)}
+.c-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+.c-val{font-size:13px;color:var(--text)}
+
+/* ── FOOTER ── */
+footer{position:relative;z-index:1;padding:28px 40px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(0,0,0,.08);max-width:960px;margin:0 auto}
+.ft{font-size:11px;color:var(--muted);letter-spacing:.04em}
+.ft-dot{width:6px;height:6px;border-radius:50%;background:var(--rosa);animation:pulse 2.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.5)}}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  nav{padding:18px 24px}
+  .nav-links{display:none}
+  .nav-toggle{display:flex}
+  .page{padding:0 24px}
+  .hero h1{font-size:clamp(44px,13vw,72px)}
+  .about-grid{grid-template-columns:1fr}
+  .skills-grid{grid-template-columns:repeat(2,1fr)}
+  /* fix border-radius en 2 col */
+  .skill-item:nth-child(1){border-radius:14px 0 0 0}
+  .skill-item:nth-child(2){border-radius:0 14px 0 0}
+  .skill-item:nth-child(3){border-radius:0}
+  .skill-item:nth-last-child(2){border-radius:0 0 0 14px}
+  .skill-item:last-child{border-radius:0 0 14px 0}
+  .services-grid{grid-template-columns:repeat(2,1fr)}
+  .srv:nth-child(1){border-radius:14px 0 0 0}
+  .srv:nth-child(2){border-radius:0 14px 0 0}
+  .srv:nth-child(3){border-radius:0}
+  .srv:nth-last-child(2){border-radius:0 0 0 14px}
+  .srv:last-child{border-radius:0 0 14px 0}
+  .masonry{columns:2}
+  .contact-wrap{grid-template-columns:1fr}
+  footer{padding:24px}
+}
+@media(max-width:480px){
+  .hero{padding-top:70px}
+  .pills{gap:6px}
+  .pill{font-size:10px;padding:5px 12px}
+  .masonry{columns:1}
+  .skills-grid{grid-template-columns:1fr}
+  .skill-item:nth-child(n){border-radius:0}
+  .skill-item:first-child{border-radius:14px 14px 0 0}
+  .skill-item:last-child{border-radius:0 0 14px 14px}
+  .services-grid{grid-template-columns:1fr}
+  .srv:nth-child(n){border-radius:0}
+  .srv:first-child{border-radius:14px 14px 0 0}
+  .srv:last-child{border-radius:0 0 14px 14px}
+  section{padding:52px 0}
+}
+</style>
+</head>
+<body>
+
+<div class="blobs">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">Sofía Correa</span>
+  <ul class="nav-links">
+    <li><a href="#sobre-mi">Sobre mí</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <button class="nav-toggle" id="toggle" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#sobre-mi">Sobre mí</a>
+  <a href="#servicios">Servicios</a>
+  <a href="#portfolio">Portfolio</a>
+  <a href="#contacto">Contacto</a>
+</div>
+
+<div class="page">
+
+  <!-- HERO -->
+  <section class="hero" id="inicio" style="border:none;padding-top:80px">
+    <p class="hero-tag">Creative Director · Buenos Aires</p>
+    <h1>Sofía<br><em>Correa</em></h1>
+    <div class="pills">
+      <span class="pill pr">Creative Direction</span>
+      <span class="pill pl">Art Direction</span>
+      <span class="pill pc">Branding</span>
+      <span class="pill pr">Packaging</span>
+      <span class="pill pl">UI · UX</span>
+    </div>
+    <p class="hero-bio">Diseño identidades que tienen algo para decir. Me muevo en el cruce entre <strong>dirección de arte, comunicación estratégica y diseño visual</strong> — desde branding y packaging hasta interfaces digitales.</p>
+    <div class="hero-cta"><a href="#portfolio" class="btn btn-primary">Ver trabajos</a></div>
+  </section>
+
+  <!-- SOBRE MI -->
+  <section id="sobre-mi">
+    <p class="sec-label">Sobre mí</p>
+    <div class="about-grid">
+      <div>
+        <h2 class="sec-title">Hola,<br>soy Chini.</h2>
+        <div class="about-text">
+          <p>Soy Creative & Art Director con más de 7 años de experiencia en agencias, entretenimiento y gobierno. Me gusta estar en <strong>constante aprendizaje</strong> y moverme entre disciplinas.</p>
+          <p>Pasé por <strong>Dentsu Creative, BeautifulBeast Ad (USA), Oasis Entertainment</strong> y actualmente lidero la comunicación estratégica de la <strong>Municipalidad de Pilar</strong>.</p>
+          <p>Hablo mucho y muy rápido — y diseño igual de rápido, pero con criterio.</p>
+        </div>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-item"><div class="sk-name">Adobe Illustrator</div><div class="sk-bar"><div class="sk-fill" data-w="0.95"></div></div></div>
+        <div class="skill-item"><div class="sk-name">Adobe Photoshop</div><div class="sk-bar"><div class="sk-fill" data-w="0.93"></div></div></div>
+        <div class="skill-item"><div class="sk-name">Premiere Pro</div><div class="sk-bar"><div class="sk-fill" data-w="0.88"></div></div></div>
+        <div class="skill-item"><div class="sk-name">After Effects</div><div class="sk-bar"><div class="sk-fill" data-w="0.80"></div></div></div>
+        <div class="skill-item"><div class="sk-name">UX · UI Design</div><div class="sk-bar"><div class="sk-fill" data-w="0.82"></div></div></div>
+        <div class="skill-item"><div class="sk-name">Ilustración Digital</div><div class="sk-bar"><div class="sk-fill" data-w="0.78"></div></div></div>
+        <div class="skill-item"><div class="sk-name">IA Generativa</div><div class="sk-bar"><div class="sk-fill" data-w="0.85"></div></div></div>
+        <div class="skill-item"><div class="sk-name">e-Mail Marketing</div><div class="sk-bar"><div class="sk-fill" data-w="0.75"></div></div></div>
+        <div class="skill-item"><div class="sk-name">Inglés Avanzado</div><div class="sk-bar"><div class="sk-fill" data-w="0.90"></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section id="servicios">
+    <p class="sec-label">Servicios</p>
+    <div class="services-grid">
+      <div class="srv"><div class="srv-icon si-lila">✦</div><div class="srv-name">Branding & Identidad</div><div class="srv-desc">Construcción de marca desde cero: naming, logotipo, paleta, tipografía y sistema visual completo.</div></div>
+      <div class="srv"><div class="srv-icon si-rosa">◈</div><div class="srv-name">Packaging</div><div class="srv-desc">Diseño de envases y etiquetas con foco en impacto en góndola y coherencia de marca.</div></div>
+      <div class="srv"><div class="srv-icon si-celeste">⊙</div><div class="srv-name">Social Media Design</div><div class="srv-desc">Piezas gráficas y contenido visual para redes con estrategia y estética consistente.</div></div>
+      <div class="srv"><div class="srv-icon si-mix">◻</div><div class="srv-name">UI · UX Design</div><div class="srv-desc">Diseño de interfaces digitales, apps y webs centradas en la experiencia del usuario.</div></div>
+      <div class="srv"><div class="srv-icon si-rosa">▲</div><div class="srv-name">Dirección de Arte</div><div class="srv-desc">Conceptualización y supervisión creativa para campañas 360, fotografía y producción audiovisual.</div></div>
+      <div class="srv"><div class="srv-icon si-lila">◎</div><div class="srv-name">Comunicación Institucional</div><div class="srv-desc">Estrategia y diseño para organismos públicos, ONGs y proyectos con narrativa política o social.</div></div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio">
+    <p class="sec-label">Portfolio</p>
+    <div class="filter-row">
+      <button class="filter-btn active" data-filter="all">Todos</button>
+      <button class="filter-btn" data-filter="branding">Branding</button>
+      <button class="filter-btn" data-filter="packaging">Packaging</button>
+      <button class="filter-btn" data-filter="social">Social Media</button>
+      <button class="filter-btn" data-filter="ui">UI · UX</button>
+      <button class="filter-btn" data-filter="institucional">Institucional</button>
+    </div>
+    <div class="masonry" id="masonry">
+
+      <!-- ↓↓ REEMPLAZÁ los placeholder div por <img src="img/nombre.jpg" alt="..."> ↓↓ -->
+
+      <div class="m-item" data-cat="branding">
+        <div class="m-placeholder" style="height:240px">
+          <span style="font-size:22px;opacity:.2">⬡</span>
+          <span>imagen aquí</span>
+        </div>
+        <div class="m-overlay">
+          <div class="m-client">Lidherma</div>
+          <div class="m-title">Identidad Visual</div>
+          <span class="m-cat cat-branding">Branding</span>
+        </div>
+      </div>
+
+      <div class="m-item" data-cat="packaging">
+        <div class="m-placeholder" style="height:300px">
+          <span style="font-size:22px;opacity:.2">⬡</span>
+          <span>imagen aquí</span>
+        </div>
+        <div class="m-overlay">
+          <div class="m-client">Proyecto</div>
+          <div class="m-title">Packaging Premium</div>
+          <span class="m-cat cat-packaging">Packaging</span>
+        </div>
+      </div>
+
+      <div class="m-item" data-cat="social">
+        <div class="m-placeholder" style="height:190px">
+          <span style="font-size:22px;opacity:.2">⬡</span>
+          <span>imagen aquí</span>
+        </div>
+        <div class="m-overlay">
+          <div class="m-client">Oasis Entertainment</div>
+          <div class="m-title">Campaña Social Media</div>
+          <span class="m-cat cat-social">Social Media</span>
+        </div>
+      </div>
+
+      <div class="m-item" data-cat="ui">
+        <div class="m-placeholder" style="height:260px">
+          <span style="font-size:22px;opacity:.2">⬡</span>
+          <span>imagen aquí</span>
+        </div>
+        <div class="m-overlay">
+          <div class="m-client">Erenzia Beauty</div>
+          <div class="m-title">UI Design · App</div>
+          <span class="m-cat cat-ui">UI · UX</span>
+        </div>
+      </div>
+
+      <div class="m-item" data-cat="branding">
+        <div class="m-placeholder" style="height:210px">
+          <span style="font-size:22px;opacity:.2">⬡</span>
+          <span>imagen aquí</span>
+        </div>
+        <div class="m-overlay">
+          <div class="m-client">Ferrero</div>
+          <div class="m-title">Brand Campaign</div>
+          <span class="m-cat cat-branding">Branding</span>
+        </div>
+      </div>
+
+      <div class="m-item" data-cat="institucional">
+        <div class="m-placeholder" style="height:280px">
+          <span style="font-size:22px;opacity:.2">⬡</span>
+          <span>imagen aquí</span>
+        </div>
+        <div class="m-overlay">
+          <div class="m-client">Municipalidad de Pilar</div>
+          <div class="m-title">Comunicación Institucional</div>
+          <span class="m-cat cat-institucional">Institucional</span>
+        </div>
+      </div>
+
+      <div class="m-item" data-cat="packaging">
+        <div class="m-placeholder" style="height:230px">
+          <span style="font-size:22px;opacity:.2">⬡</span>
+          <span>imagen aquí</span>
+        </div>
+        <div class="m-overlay">
+          <div class="m-client">Proyecto</div>
+          <div class="m-title">Label Design</div>
+          <span class="m-cat cat-packaging">Packaging</span>
+        </div>
+      </div>
+
+      <div class="m-item" data-cat="social">
+        <div class="m-placeholder" style="height:185px">
+          <span style="font-size:22px;opacity:.2">⬡</span>
+          <span>imagen aquí</span>
+        </div>
+        <div class="m-overlay">
+          <div class="m-client">Noblex</div>
+          <div class="m-title">Social Media Kit</div>
+          <span class="m-cat cat-social">Social Media</span>
+        </div>
+      </div>
+
+      <div class="m-item" data-cat="ui">
+        <div class="m-placeholder" style="height:250px">
+          <span style="font-size:22px;opacity:.2">⬡</span>
+          <span>imagen aquí</span>
+        </div>
+        <div class="m-overlay">
+          <div class="m-client">Amazon Music</div>
+          <div class="m-title">UX · Key Visual</div>
+          <span class="m-cat cat-ui">UI · UX</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto">
+    <p class="sec-label">Contacto</p>
+    <div class="contact-wrap">
+      <div>
+        <h2 class="sec-title">Trabajemos<br>juntos.</h2>
+        <p class="contact-intro">Si tenés un proyecto de <strong>branding, packaging, campaña o dirección de arte</strong>, escribime. Hablo rápido y respondo igual de rápido.</p>
+      </div>
+      <div class="contact-cards">
+        <a class="c-card" href="mailto:tamarasofiac@gmail.com">
+          <div class="c-dot cd-rosa">✉</div>
+          <div><div class="c-label">Email</div><div class="c-val">tamarasofiac@gmail.com</div></div>
+        </a>
+        <a class="c-card" href="https://wa.me/5491158566838" target="_blank">
+          <div class="c-dot cd-lila">☎</div>
+          <div><div class="c-label">WhatsApp</div><div class="c-val">+54 11 5856 6838</div></div>
+        </a>
+        <a class="c-card" href="https://linkedin.com/in/sofiacorrea" target="_blank">
+          <div class="c-dot cd-rosa" style="font-size:10px;font-weight:700">in</div>
+          <div><div class="c-label">LinkedIn</div><div class="c-val">Sofía Correa</div></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <span class="ft">© 2026 Sofía Correa · Pilar, Buenos Aires</span>
+  <div class="ft-dot"></div>
+</footer>
+
+<script>
+// Hamburger menu
+const toggle = document.getElementById('toggle');
+const mobileMenu = document.getElementById('mobile-menu');
+toggle.addEventListener('click', () => {
+  toggle.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+});
+mobileMenu.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    toggle.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  });
+});
+
+// Portfolio filter
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    document.querySelectorAll('.m-item').forEach(item => {
+      item.classList.toggle('hidden', f !== 'all' && item.dataset.cat !== f);
+    });
+  });
+});
+
+// Skill bars — animate on scroll into view
+const fills = document.querySelectorAll('.sk-fill');
+fills.forEach(el => {
+  el.style.width = (parseFloat(el.dataset.w) * 100) + '%';
+});
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.sk-fill').forEach(f => f.classList.add('animated'));
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.2 });
+document.querySelectorAll('.skills-grid').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
