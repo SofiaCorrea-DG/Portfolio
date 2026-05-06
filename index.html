@@ -99,27 +99,38 @@ section{padding:72px 0;position:relative;z-index:1}
 .srv-desc{font-size:12px;color:var(--muted);line-height:1.6}
 
 /* ── PORTFOLIO ── */
-.filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
+.filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:40px}
 .filter-btn{padding:7px 16px;border-radius:100px;font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;border:1px solid rgba(0,0,0,.12);background:transparent;cursor:pointer;transition:all .2s;color:var(--muted)}
 .filter-btn:hover,.filter-btn.active{background:var(--text);color:var(--bg);border-color:var(--text)}
 
-.masonry{columns:3;column-gap:10px}
-.m-item{break-inside:avoid;margin-bottom:10px;position:relative;overflow:hidden;border-radius:12px;cursor:pointer;background:rgba(255,255,255,.3);border:1px solid var(--glass-border);transition:opacity .3s}
-.m-item.hidden{display:none}
-.m-placeholder{width:100%;background:linear-gradient(135deg,rgba(255,255,255,.5),rgba(255,255,255,.2));display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;color:rgba(0,0,0,.2);font-size:10px;letter-spacing:.06em;text-transform:uppercase;transition:transform .4s ease}
-.m-item img{width:100%;display:block;object-fit:cover;transition:transform .4s ease}
-.m-item:hover .m-placeholder,
-.m-item:hover img{transform:scale(1.04)}
-.m-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(20,20,20,.78) 0%,transparent 55%);opacity:0;transition:opacity .3s;display:flex;flex-direction:column;justify-content:flex-end;padding:16px}
-.m-item:hover .m-overlay{opacity:1}
-.m-client{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:2px}
-.m-title{font-size:13px;font-weight:500;color:#fff}
-.m-cat{display:inline-block;margin-top:5px;padding:3px 10px;border-radius:100px;font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
-.cat-branding{background:rgba(209,122,244,.4);color:#fff}
-.cat-packaging{background:rgba(255,113,172,.4);color:#fff}
-.cat-social{background:rgba(154,245,247,.45);color:#005254}
-.cat-ui{background:rgba(255,255,255,.28);color:#fff}
-.cat-institucional{background:rgba(26,26,26,.45);color:#fff}
+/* CLIENT BLOCKS */
+.client-block{margin-bottom:64px;transition:opacity .3s}
+.client-block.hidden{display:none}
+.client-header{display:flex;align-items:baseline;gap:16px;margin-bottom:20px}
+.client-name{font-size:20px;font-weight:400;letter-spacing:-.01em;color:var(--text)}
+.client-tag{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:3px 12px;border-radius:100px}
+.ct-branding{background:rgba(209,122,244,.15);color:#7a00b8}
+.ct-ui{background:rgba(154,245,247,.2);color:#005254}
+.ct-institucional{background:rgba(26,26,26,.08);color:#333}
+.ct-social{background:rgba(255,113,172,.12);color:#b5004a}
+
+/* MEDIA GRID inside each client */
+.media-grid{display:grid;gap:10px}
+.mg-1{grid-template-columns:1fr}
+.mg-2{grid-template-columns:1fr 1fr}
+.mg-3{grid-template-columns:1fr 1fr 1fr}
+.mg-auto{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+
+.media-card{position:relative;overflow:hidden;border-radius:14px;background:rgba(255,255,255,.3);border:1px solid var(--glass-border);cursor:pointer}
+.media-card img{width:100%;display:block;object-fit:cover;transition:transform .4s ease}
+.media-card video{width:100%;display:block;object-fit:cover;transition:transform .4s ease}
+.media-card:hover img,.media-card:hover video{transform:scale(1.03)}
+.media-card .mc-label{position:absolute;bottom:0;left:0;right:0;padding:10px 14px;background:linear-gradient(to top,rgba(20,20,20,.7),transparent);color:#fff;font-size:11px;font-weight:500;opacity:0;transition:opacity .3s}
+.media-card:hover .mc-label{opacity:1}
+
+/* tall card for hero image of each client */
+.card-tall img,.card-tall video{max-height:480px}
+.card-sm img,.card-sm video{max-height:260px}
 
 /* ── CONTACTO ── */
 .contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
@@ -149,7 +160,6 @@ footer{position:relative;z-index:1;padding:28px 40px;display:flex;justify-conten
   .hero h1{font-size:clamp(44px,13vw,72px)}
   .about-grid{grid-template-columns:1fr}
   .skills-grid{grid-template-columns:repeat(2,1fr)}
-  /* fix border-radius en 2 col */
   .skill-item:nth-child(1){border-radius:14px 0 0 0}
   .skill-item:nth-child(2){border-radius:0 14px 0 0}
   .skill-item:nth-child(3){border-radius:0}
@@ -161,7 +171,7 @@ footer{position:relative;z-index:1;padding:28px 40px;display:flex;justify-conten
   .srv:nth-child(3){border-radius:0}
   .srv:nth-last-child(2){border-radius:0 0 0 14px}
   .srv:last-child{border-radius:0 0 14px 0}
-  .masonry{columns:2}
+  .mg-2,.mg-3,.mg-auto{grid-template-columns:1fr 1fr}
   .contact-wrap{grid-template-columns:1fr}
   footer{padding:24px}
 }
@@ -169,7 +179,7 @@ footer{position:relative;z-index:1;padding:28px 40px;display:flex;justify-conten
   .hero{padding-top:70px}
   .pills{gap:6px}
   .pill{font-size:10px;padding:5px 12px}
-  .masonry{columns:1}
+  .mg-2,.mg-3,.mg-auto{grid-template-columns:1fr}
   .skills-grid{grid-template-columns:1fr}
   .skill-item:nth-child(n){border-radius:0}
   .skill-item:first-child{border-radius:14px 14px 0 0}
@@ -179,6 +189,7 @@ footer{position:relative;z-index:1;padding:28px 40px;display:flex;justify-conten
   .srv:first-child{border-radius:14px 14px 0 0}
   .srv:last-child{border-radius:0 0 14px 14px}
   section{padding:52px 0}
+  .client-block{margin-bottom:44px}
 }
 </style>
 </head>
@@ -272,124 +283,130 @@ footer{position:relative;z-index:1;padding:28px 40px;display:flex;justify-conten
     <div class="filter-row">
       <button class="filter-btn active" data-filter="all">Todos</button>
       <button class="filter-btn" data-filter="branding">Branding</button>
-      <button class="filter-btn" data-filter="packaging">Packaging</button>
-      <button class="filter-btn" data-filter="social">Social Media</button>
-      <button class="filter-btn" data-filter="ui">UI · UX</button>
+      <button class="filter-btn" data-filter="ui">Dirección de Arte</button>
       <button class="filter-btn" data-filter="institucional">Institucional</button>
     </div>
-    <div class="masonry" id="masonry">
 
-      <!-- ↓↓ REEMPLAZÁ los placeholder div por <img src="img/nombre.jpg" alt="..."> ↓↓ -->
-
-      <div class="m-item" data-cat="branding">
-        <div class="m-placeholder" style="height:240px">
-          <span style="font-size:22px;opacity:.2">⬡</span>
-          <span>imagen aquí</span>
-        </div>
-        <div class="m-overlay">
-          <div class="m-client">Lidherma</div>
-          <div class="m-title">Identidad Visual</div>
-          <span class="m-cat cat-branding">Branding</span>
+    <!-- LIDHERMA -->
+    <div class="client-block" data-cat="branding">
+      <div class="client-header">
+        <span class="client-name">Lidherma</span>
+        <span class="client-tag ct-branding">Branding · Art Direction</span>
+      </div>
+      <div class="media-grid mg-2" style="margin-bottom:10px">
+        <div class="media-card card-tall"><img src="img/lidherma/lidherma-1.jpg" alt="Lidherma"><div class="mc-label">Identidad Visual</div></div>
+        <div class="media-grid mg-1" style="gap:10px">
+          <div class="media-card"><img src="img/lidherma/lidherma-2.jpg" alt="Lidherma"><div class="mc-label">Campaña</div></div>
+          <div class="media-card"><img src="img/lidherma/lidherma-3.jpg" alt="Lidherma"><div class="mc-label">Piezas Gráficas</div></div>
         </div>
       </div>
-
-      <div class="m-item" data-cat="packaging">
-        <div class="m-placeholder" style="height:300px">
-          <span style="font-size:22px;opacity:.2">⬡</span>
-          <span>imagen aquí</span>
+      <div class="media-grid mg-3">
+        <div class="media-card card-sm"><img src="img/lidherma/lidherma-4.jpg" alt="Lidherma"><div class="mc-label">Social Media</div></div>
+        <div class="media-card card-sm"><img src="img/lidherma/lidherma-5.jpg" alt="Lidherma"><div class="mc-label">Key Visual</div></div>
         </div>
-        <div class="m-overlay">
-          <div class="m-client">Proyecto</div>
-          <div class="m-title">Packaging Premium</div>
-          <span class="m-cat cat-packaging">Packaging</span>
-        </div>
+        <div class="media-card card-sm"><img src="img/lidherma/lidherma-7.jpg" alt="Lidherma"><div class="mc-label">Art Direction</div></div>
+        <div class="media-card card-sm"><img src="img/lidherma/lidherma-8.jpg" alt="Lidherma"><div class="mc-label">Comunicación</div></div>
+        <div class="media-card card-sm"><img src="img/lidherma/lidherma-9.jpg" alt="Lidherma"><div class="mc-label">Campaña</div></div>
       </div>
-
-      <div class="m-item" data-cat="social">
-        <div class="m-placeholder" style="height:190px">
-          <span style="font-size:22px;opacity:.2">⬡</span>
-          <span>imagen aquí</span>
-        </div>
-        <div class="m-overlay">
-          <div class="m-client">Oasis Entertainment</div>
-          <div class="m-title">Campaña Social Media</div>
-          <span class="m-cat cat-social">Social Media</span>
-        </div>
-      </div>
-
-      <div class="m-item" data-cat="ui">
-        <div class="m-placeholder" style="height:260px">
-          <span style="font-size:22px;opacity:.2">⬡</span>
-          <span>imagen aquí</span>
-        </div>
-        <div class="m-overlay">
-          <div class="m-client">Erenzia Beauty</div>
-          <div class="m-title">UI Design · App</div>
-          <span class="m-cat cat-ui">UI · UX</span>
-        </div>
-      </div>
-
-      <div class="m-item" data-cat="branding">
-        <div class="m-placeholder" style="height:210px">
-          <span style="font-size:22px;opacity:.2">⬡</span>
-          <span>imagen aquí</span>
-        </div>
-        <div class="m-overlay">
-          <div class="m-client">Ferrero</div>
-          <div class="m-title">Brand Campaign</div>
-          <span class="m-cat cat-branding">Branding</span>
-        </div>
-      </div>
-
-      <div class="m-item" data-cat="institucional">
-        <div class="m-placeholder" style="height:280px">
-          <span style="font-size:22px;opacity:.2">⬡</span>
-          <span>imagen aquí</span>
-        </div>
-        <div class="m-overlay">
-          <div class="m-client">Municipalidad de Pilar</div>
-          <div class="m-title">Comunicación Institucional</div>
-          <span class="m-cat cat-institucional">Institucional</span>
-        </div>
-      </div>
-
-      <div class="m-item" data-cat="packaging">
-        <div class="m-placeholder" style="height:230px">
-          <span style="font-size:22px;opacity:.2">⬡</span>
-          <span>imagen aquí</span>
-        </div>
-        <div class="m-overlay">
-          <div class="m-client">Proyecto</div>
-          <div class="m-title">Label Design</div>
-          <span class="m-cat cat-packaging">Packaging</span>
-        </div>
-      </div>
-
-      <div class="m-item" data-cat="social">
-        <div class="m-placeholder" style="height:185px">
-          <span style="font-size:22px;opacity:.2">⬡</span>
-          <span>imagen aquí</span>
-        </div>
-        <div class="m-overlay">
-          <div class="m-client">Noblex</div>
-          <div class="m-title">Social Media Kit</div>
-          <span class="m-cat cat-social">Social Media</span>
-        </div>
-      </div>
-
-      <div class="m-item" data-cat="ui">
-        <div class="m-placeholder" style="height:250px">
-          <span style="font-size:22px;opacity:.2">⬡</span>
-          <span>imagen aquí</span>
-        </div>
-        <div class="m-overlay">
-          <div class="m-client">Amazon Music</div>
-          <div class="m-title">UX · Key Visual</div>
-          <span class="m-cat cat-ui">UI · UX</span>
-        </div>
-      </div>
-
     </div>
+
+    <!-- CAFETERÍA COLONIAL -->
+    <div class="client-block" data-cat="branding">
+      <div class="client-header">
+        <span class="client-name">Cafetería Colonial</span>
+        <span class="client-tag ct-branding">Branding · Packaging</span>
+      </div>
+      <div class="media-grid mg-2" style="margin-bottom:10px">
+        <div class="media-card card-tall"><img src="img/cafeteria-colonial/cc-1.jpg" alt="Cafetería Colonial"><div class="mc-label">Identidad de Marca</div></div>
+        <div class="media-card card-tall"><img src="img/cafeteria-colonial/cc-2.jpg" alt="Cafetería Colonial"><div class="mc-label">Sistema Visual</div></div>
+      </div>
+      <div class="media-grid mg-3">
+        <div class="media-card card-sm"><img src="img/cafeteria-colonial/cc-3.jpg" alt="Cafetería Colonial"><div class="mc-label">Packaging</div></div>
+        <div class="media-card card-sm"><img src="img/cafeteria-colonial/cc-4.jpg" alt="Cafetería Colonial"><div class="mc-label">Piezas Gráficas</div></div>
+        <div class="media-card card-sm"><img src="img/cafeteria-colonial/cc-5.jpg" alt="Cafetería Colonial"><div class="mc-label">Art Direction</div></div>
+      </div>
+    </div>
+
+    <!-- CHOMBA STUDIO -->
+    <div class="client-block" data-cat="branding">
+      <div class="client-header">
+        <span class="client-name">Chomba Studio</span>
+        <span class="client-tag ct-branding">Branding · Manual de Marca</span>
+      </div>
+      <div class="media-grid mg-1">
+        <div class="media-card card-tall"><img src="img/chomba-studio/chomba-1.jpg" alt="Chomba Studio"><div class="mc-label">Manual de Marca</div></div>
+      </div>
+    </div>
+
+    <!-- ERENZIA -->
+    <div class="client-block" data-cat="ui">
+      <div class="client-header">
+        <span class="client-name">Erenzia Beauty</span>
+        <span class="client-tag ct-ui">Dirección de Arte · Motion</span>
+      </div>
+      <div class="media-grid mg-2" style="margin-bottom:10px">
+        <div class="media-card card-tall">
+          <video autoplay muted loop playsinline src="img/erenzia/erenzia-1.mp4"></video>
+          <div class="mc-label">Campaña · Idea 1</div>
+        </div>
+        <div class="media-card card-tall">
+          <video autoplay muted loop playsinline src="img/erenzia/erenzia-4.mp4"></video>
+          <div class="mc-label">Cyber Monday</div>
+        </div>
+      </div>
+      <div class="media-grid mg-3">
+        <div class="media-card card-sm">
+          <video autoplay muted loop playsinline src="img/erenzia/erenzia-2.mp4"></video>
+          <div class="mc-label">Black Friday · v1</div>
+        </div>
+        <div class="media-card card-sm">
+          <video autoplay muted loop playsinline src="img/erenzia/erenzia-3.mp4"></video>
+          <div class="mc-label">Black Friday · v2</div>
+        </div>
+        <div class="media-card card-sm">
+          <video autoplay muted loop playsinline src="img/erenzia/erenzia-5.mp4"></video>
+          <div class="mc-label">Idea 5</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AMAZON MUSIC -->
+    <div class="client-block" data-cat="ui">
+      <div class="client-header">
+        <span class="client-name">Amazon Music</span>
+        <span class="client-tag ct-ui">Dirección de Arte · Key Visuals</span>
+      </div>
+      <div class="media-grid mg-2" style="margin-bottom:10px">
+        <div class="media-card card-tall"><img src="img/amazon-music/am-1.jpg" alt="Amazon Music"><div class="mc-label">Playful</div></div>
+        <div class="media-card card-tall"><img src="img/amazon-music/am-5.jpg" alt="Amazon Music"><div class="mc-label">The Star Who Creates Stars</div></div>
+      </div>
+      <div class="media-grid mg-3">
+        <div class="media-card card-sm"><img src="img/amazon-music/am-2.jpg" alt="Amazon Music"><div class="mc-label">Playful v2</div></div>
+        <div class="media-card card-sm"><img src="img/amazon-music/am-3.jpg" alt="Amazon Music"><div class="mc-label">Straight v2</div></div>
+        <div class="media-card card-sm"><img src="img/amazon-music/am-4.jpg" alt="Amazon Music"><div class="mc-label">Straight</div></div>
+      </div>
+    </div>
+
+    <!-- MUNICIPALIDAD DE PILAR -->
+    <div class="client-block" data-cat="institucional">
+      <div class="client-header">
+        <span class="client-name">Municipalidad de Pilar</span>
+        <span class="client-tag ct-institucional">Comunicación Institucional</span>
+      </div>
+      <div class="media-grid mg-2" style="margin-bottom:10px">
+        <div class="media-card card-tall"><img src="img/municipalidad/muni-1.jpg" alt="Municipalidad de Pilar"><div class="mc-label">Identidad Institucional</div></div>
+        <div class="media-card card-tall"><img src="img/municipalidad/muni-2.jpg" alt="Municipalidad de Pilar"><div class="mc-label">Campaña</div></div>
+      </div>
+      <div class="media-grid mg-3">
+        <div class="media-card card-sm"><img src="img/municipalidad/muni-3.jpg" alt="Municipalidad de Pilar"><div class="mc-label">Piezas Gráficas</div></div>
+        <div class="media-card card-sm"><img src="img/municipalidad/muni-4.jpg" alt="Municipalidad de Pilar"><div class="mc-label">Diseño Editorial</div></div>
+        <div class="media-card card-sm"><img src="img/municipalidad/muni-5.jpg" alt="Municipalidad de Pilar"><div class="mc-label">Social Media</div></div>
+        <div class="media-card card-sm"><img src="img/municipalidad/muni-6.jpg" alt="Municipalidad de Pilar"><div class="mc-label">Art Direction</div></div>
+        <div class="media-card card-sm"><img src="img/municipalidad/muni-7.jpg" alt="Municipalidad de Pilar"><div class="mc-label">Identidad</div></div>
+        <div class="media-card card-sm"><img src="img/municipalidad/muni-8.jpg" alt="Municipalidad de Pilar"><div class="mc-label">Key Visual</div></div>
+      </div>
+    </div>
+
   </section>
 
   <!-- CONTACTO -->
@@ -449,8 +466,8 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     const f = btn.dataset.filter;
-    document.querySelectorAll('.m-item').forEach(item => {
-      item.classList.toggle('hidden', f !== 'all' && item.dataset.cat !== f);
+    document.querySelectorAll('.client-block').forEach(block => {
+      block.classList.toggle('hidden', f !== 'all' && block.dataset.cat !== f);
     });
   });
 });
