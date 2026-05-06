@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -532,18 +533,32 @@ document.addEventListener('keydown', e => {
   if (e.key === 'ArrowRight') { lbIdx = (lbIdx + 1) % lbItems.length; lbRender(); }
 });
 
-// Strip arrows
+// Strip arrows — infinite loop
 document.querySelectorAll('.strip-wrap').forEach(wrap => {
   const strip = wrap.querySelector('.strip');
   const leftBtn = wrap.querySelector('.strip-arrow.left');
   const rightBtn = wrap.querySelector('.strip-arrow.right');
   if (!strip || !leftBtn || !rightBtn) return;
 
-  const scroll = (dir) => { strip.scrollBy({ left: dir * 320, behavior: 'smooth' }); };
-  leftBtn.addEventListener('click', () => scroll(-1));
-  rightBtn.addEventListener('click', () => scroll(1));
+  const scrollAmt = 320;
 
-  // arrows always visible
+  rightBtn.addEventListener('click', () => {
+    const atEnd = strip.scrollLeft + strip.clientWidth >= strip.scrollWidth - 10;
+    if (atEnd) {
+      strip.scrollTo({ left: 0, behavior: 'smooth' });
+    } else {
+      strip.scrollBy({ left: scrollAmt, behavior: 'smooth' });
+    }
+  });
+
+  leftBtn.addEventListener('click', () => {
+    const atStart = strip.scrollLeft < 10;
+    if (atStart) {
+      strip.scrollTo({ left: strip.scrollWidth, behavior: 'smooth' });
+    } else {
+      strip.scrollBy({ left: -scrollAmt, behavior: 'smooth' });
+    }
+  });
 });
 
 // Wire up strips to lightbox
