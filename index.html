@@ -105,7 +105,7 @@ section{padding:72px 0;position:relative;z-index:1}
 .filter-btn:hover,.filter-btn.active{background:var(--text);color:var(--bg);border-color:var(--text)}
 
 /* CLIENT BLOCKS */
-.client-block{margin-bottom:64px}
+.client-block{margin-bottom:56px}
 .client-block.hidden{display:none}
 .client-header{display:flex;align-items:baseline;gap:16px;margin-bottom:16px}
 .client-name{font-size:20px;font-weight:400;letter-spacing:-.01em;color:var(--text)}
@@ -113,27 +113,24 @@ section{padding:72px 0;position:relative;z-index:1}
 .ct-branding{background:rgba(209,122,244,.15);color:#7a00b8}
 .ct-ui{background:rgba(154,245,247,.2);color:#005254}
 
-/* BENTO GRID */
-.bento{display:grid;gap:8px;width:100%}
+/* STRIP WRAPPER */
+.strip-wrap{position:relative}
+.strip{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:4px;scroll-behavior:smooth}
+.strip::-webkit-scrollbar{display:none}
 
-/* row layouts */
-.bento-r1{grid-template-columns:1fr 2fr 1fr;grid-template-rows:320px}
-.bento-r2{grid-template-columns:repeat(4,1fr);grid-template-rows:240px}
-.bento-r3{grid-template-columns:2fr 1fr 1fr;grid-template-rows:300px}
-.bento-r4{grid-template-columns:1fr 1fr 2fr;grid-template-rows:300px}
-.bento-r5{grid-template-columns:repeat(3,1fr);grid-template-rows:260px}
-.bento-r6{grid-template-columns:repeat(5,1fr);grid-template-rows:200px}
-.bento-r7{grid-template-columns:1fr 1fr;grid-template-rows:360px}
-.bento-r8{grid-template-columns:repeat(4,1fr);grid-template-rows:220px}
+/* ARROW BUTTONS */
+.strip-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:10;background:rgba(255,255,255,0.75);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.6);color:var(--text);width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;transition:background .2s,opacity .2s;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.strip-arrow:hover{background:rgba(255,255,255,0.95)}
+.strip-arrow.left{left:8px}
+.strip-arrow.right{right:8px}
+.strip-arrow.hidden{opacity:0;pointer-events:none}
 
-.bento+.bento{margin-top:8px}
-
-/* CELLS */
-.bc{position:relative;overflow:hidden;border-radius:10px;cursor:pointer;background:rgba(255,255,255,.25);border:1px solid var(--glass-border)}
-.bc img,.bc video{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease}
-.bc:hover img,.bc:hover video{transform:scale(1.05)}
-.bc .bc-label{position:absolute;bottom:0;left:0;right:0;padding:8px 12px;background:linear-gradient(to top,rgba(10,10,10,.75),transparent);color:#fff;font-size:11px;font-weight:500;opacity:0;transition:opacity .25s}
-.bc:hover .bc-label{opacity:1}
+/* STRIP ITEMS */
+.strip-item{flex:0 0 auto;height:280px;border-radius:12px;overflow:hidden;cursor:pointer;position:relative;background:rgba(255,255,255,.25);border:1px solid var(--glass-border)}
+.strip-item img,.strip-item video{height:100%;width:auto;display:block;object-fit:cover;transition:transform .35s ease}
+.strip-item:hover img,.strip-item:hover video{transform:scale(1.04)}
+.strip-item .si-label{position:absolute;bottom:0;left:0;right:0;padding:8px 12px;background:linear-gradient(to top,rgba(10,10,10,.72),transparent);color:#fff;font-size:11px;font-weight:500;opacity:0;transition:opacity .25s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.strip-item:hover .si-label{opacity:1}
 
 /* LIGHTBOX */
 .lb{display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,.93);align-items:center;justify-content:center;padding:20px}
@@ -146,13 +143,7 @@ section{padding:72px 0;position:relative;z-index:1}
 .lb-prev{left:12px}.lb-next{right:12px}
 .lb-prev:hover,.lb-next:hover{background:rgba(255,255,255,.22)}
 
-@media(max-width:768px){
-  .bento-r1,.bento-r3,.bento-r4,.bento-r5{grid-template-columns:1fr 1fr;grid-template-rows:auto}
-  .bento-r2,.bento-r8{grid-template-columns:1fr 1fr;grid-template-rows:auto}
-  .bento-r6{grid-template-columns:repeat(3,1fr);grid-template-rows:auto}
-  .bento-r7{grid-template-columns:1fr;grid-template-rows:auto}
-  .bc img,.bc video{height:180px}
-}
+
 
 /* ── CONTACTO ── */
 .contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
@@ -317,63 +308,36 @@ footer{position:relative;z-index:1;padding:28px 40px;display:flex;justify-conten
       <button class="filter-btn" data-filter="amazon">Amazon Music</button>
     </div>
 
-    <!-- LIDHERMA -->
-    <div class="client-block" data-cat="branding">
-      <div class="client-header">
-        <span class="client-name">Lidherma</span>
-        <span class="client-tag ct-branding">Branding · Art Direction</span>
-      </div>
-      <div class="bento bento-r1" data-gallery="lidherma">
-        <div class="bc" data-src="img/lidherma/l-1.jpg" data-type="img"><img src="img/lidherma/l-1.jpg" alt="Lidherma"><div class="bc-label">Identidad</div></div>
-        <div class="bc" data-src="img/lidherma/l-3.jpg" data-type="img"><img src="img/lidherma/l-3.jpg" alt="Lidherma"><div class="bc-label">Campaña</div></div>
-        <div class="bc" data-src="img/lidherma/l-5.jpg" data-type="img"><img src="img/lidherma/l-5.jpg" alt="Lidherma"><div class="bc-label">Key Visual</div></div>
-      </div>
-      <div class="bento bento-r2" data-gallery="lidherma">
-        <div class="bc" data-src="img/lidherma/l-2.jpg" data-type="img"><img src="img/lidherma/l-2.jpg" alt="Lidherma"><div class="bc-label">Piezas</div></div>
-        <div class="bc" data-src="img/lidherma/l-4.jpg" data-type="img"><img src="img/lidherma/l-4.jpg" alt="Lidherma"><div class="bc-label">Social Media</div></div>
-        <div class="bc" data-src="img/lidherma/l-6.jpg" data-type="img"><img src="img/lidherma/l-6.jpg" alt="Lidherma"><div class="bc-label">Diseño</div></div>
-        <div class="bc" data-src="img/lidherma/l-7.jpg" data-type="img"><img src="img/lidherma/l-7.jpg" alt="Lidherma"><div class="bc-label">Art Direction</div></div>
-      </div>
-      <div class="bento bento-r7" data-gallery="lidherma">
-        <div class="bc" data-src="img/lidherma/l-8.jpg" data-type="img"><img src="img/lidherma/l-8.jpg" alt="Lidherma"><div class="bc-label">Editorial</div></div>
-        <div class="bc" data-src="img/lidherma/l-9.jpg" data-type="img"><img src="img/lidherma/l-9.jpg" alt="Lidherma"><div class="bc-label">Comunicación</div></div>
-      </div>
-    </div>
-
     <!-- CAFETERÍA COLONIAL -->
     <div class="client-block" data-cat="branding">
       <div class="client-header">
         <span class="client-name">Cafetería Colonial</span>
         <span class="client-tag ct-branding">Branding · Packaging</span>
       </div>
-      <div class="bento bento-r3" data-gallery="cafeteria">
-        <div class="bc" data-src="img/cafeteria-colonial/cc-1.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-1.jpg" alt="Cafetería Colonial"><div class="bc-label">Identidad</div></div>
-        <div class="bc" data-src="img/cafeteria-colonial/cc-2.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-2.jpg" alt="Cafetería Colonial"><div class="bc-label">Sistema Visual</div></div>
-        <div class="bc" data-src="img/cafeteria-colonial/cc-5.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-5.jpg" alt="Cafetería Colonial"><div class="bc-label">Fotografía</div></div>
-      </div>
-      <div class="bento bento-r2" data-gallery="cafeteria">
-        <div class="bc" data-src="img/cafeteria-colonial/cc-3.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-3.jpg" alt="Cafetería Colonial"><div class="bc-label">Packaging</div></div>
-        <div class="bc" data-src="img/cafeteria-colonial/cc-4.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-4.jpg" alt="Cafetería Colonial"><div class="bc-label">Piezas</div></div>
-        <div class="bc" data-src="img/cafeteria-colonial/cc-6.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-6.jpg" alt="Cafetería Colonial"><div class="bc-label">Manual</div></div>
-        <div class="bc" data-src="img/cafeteria-colonial/cc-7.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-7.jpg" alt="Cafetería Colonial"><div class="bc-label">Manual</div></div>
-      </div>
-      <div class="bento bento-r6" data-gallery="cafeteria">
-        <div class="bc" data-src="img/cafeteria-colonial/cc-8.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-8.jpg" alt="Cafetería Colonial"><div class="bc-label">Manual</div></div>
-        <div class="bc" data-src="img/cafeteria-colonial/cc-9.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-9.jpg" alt="Cafetería Colonial"><div class="bc-label">Manual</div></div>
-        <div class="bc" data-src="img/cafeteria-colonial/cc-10.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-10.jpg" alt="Cafetería Colonial"><div class="bc-label">Manual</div></div>
-        <div class="bc" data-src="img/cafeteria-colonial/cc-11.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-11.jpg" alt="Cafetería Colonial"><div class="bc-label">Manual</div></div>
-        <div class="bc" data-src="img/cafeteria-colonial/cc-12.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-12.jpg" alt="Cafetería Colonial"><div class="bc-label">Manual</div></div>
-      </div>
-      <div class="bento bento-r8" data-gallery="cafeteria">
-        <div class="bc" data-src="img/cafeteria-colonial/cc-13.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-13.jpg" alt="Cafetería Colonial"><div class="bc-label">Manual</div></div>
-        <div class="bc" data-src="img/cafeteria-colonial/cc-14.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-14.jpg" alt="Cafetería Colonial"><div class="bc-label">Manual</div></div>
-        <div class="bc" data-src="img/cafeteria-colonial/cc-15.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-15.jpg" alt="Cafetería Colonial"><div class="bc-label">Manual</div></div>
-        <div class="bc" data-src="img/cafeteria-colonial/cc-16.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-16.jpg" alt="Cafetería Colonial"><div class="bc-label">Manual</div></div>
-      </div>
-      <div class="bento bento-r5" data-gallery="cafeteria">
-        <div class="bc" data-src="img/cafeteria-colonial/cc-17.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-17.jpg" alt="Cafetería Colonial"><div class="bc-label">Manual</div></div>
-        <div class="bc" data-src="img/cafeteria-colonial/cc-18.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-18.jpg" alt="Cafetería Colonial"><div class="bc-label">Manual</div></div>
-        <div class="bc" data-src="img/cafeteria-colonial/cc-19.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-19.jpg" alt="Cafetería Colonial"><div class="bc-label">Manual</div></div>
+      <div class="strip-wrap">
+        <button class="strip-arrow left" data-dir="left">&#8249;</button>
+        <div class="strip" data-gallery="cafeteria">
+          <div class="strip-item" data-src="img/cafeteria-colonial/cc-1.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-1.jpg" alt="Cafetería Colonial"><div class="si-label">Identidad</div></div>
+          <div class="strip-item" data-src="img/cafeteria-colonial/cc-2.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-2.jpg" alt="Cafetería Colonial"><div class="si-label">Sistema Visual</div></div>
+          <div class="strip-item" data-src="img/cafeteria-colonial/cc-3.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-3.jpg" alt="Cafetería Colonial"><div class="si-label">Packaging</div></div>
+          <div class="strip-item" data-src="img/cafeteria-colonial/cc-4.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-4.jpg" alt="Cafetería Colonial"><div class="si-label">Piezas</div></div>
+          <div class="strip-item" data-src="img/cafeteria-colonial/cc-5.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-5.jpg" alt="Cafetería Colonial"><div class="si-label">Fotografía</div></div>
+          <div class="strip-item" data-src="img/cafeteria-colonial/cc-6.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-6.jpg" alt="Cafetería Colonial"><div class="si-label">Manual 1</div></div>
+          <div class="strip-item" data-src="img/cafeteria-colonial/cc-7.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-7.jpg" alt="Cafetería Colonial"><div class="si-label">Manual 2</div></div>
+          <div class="strip-item" data-src="img/cafeteria-colonial/cc-8.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-8.jpg" alt="Cafetería Colonial"><div class="si-label">Manual 3</div></div>
+          <div class="strip-item" data-src="img/cafeteria-colonial/cc-9.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-9.jpg" alt="Cafetería Colonial"><div class="si-label">Manual 4</div></div>
+          <div class="strip-item" data-src="img/cafeteria-colonial/cc-10.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-10.jpg" alt="Cafetería Colonial"><div class="si-label">Manual 5</div></div>
+          <div class="strip-item" data-src="img/cafeteria-colonial/cc-11.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-11.jpg" alt="Cafetería Colonial"><div class="si-label">Manual 6</div></div>
+          <div class="strip-item" data-src="img/cafeteria-colonial/cc-12.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-12.jpg" alt="Cafetería Colonial"><div class="si-label">Manual 7</div></div>
+          <div class="strip-item" data-src="img/cafeteria-colonial/cc-13.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-13.jpg" alt="Cafetería Colonial"><div class="si-label">Manual 8</div></div>
+          <div class="strip-item" data-src="img/cafeteria-colonial/cc-14.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-14.jpg" alt="Cafetería Colonial"><div class="si-label">Manual 9</div></div>
+          <div class="strip-item" data-src="img/cafeteria-colonial/cc-15.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-15.jpg" alt="Cafetería Colonial"><div class="si-label">Manual 10</div></div>
+          <div class="strip-item" data-src="img/cafeteria-colonial/cc-16.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-16.jpg" alt="Cafetería Colonial"><div class="si-label">Manual 11</div></div>
+          <div class="strip-item" data-src="img/cafeteria-colonial/cc-17.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-17.jpg" alt="Cafetería Colonial"><div class="si-label">Manual 12</div></div>
+          <div class="strip-item" data-src="img/cafeteria-colonial/cc-18.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-18.jpg" alt="Cafetería Colonial"><div class="si-label">Manual 13</div></div>
+          <div class="strip-item" data-src="img/cafeteria-colonial/cc-19.jpg" data-type="img"><img src="img/cafeteria-colonial/cc-19.jpg" alt="Cafetería Colonial"><div class="si-label">Manual 14</div></div>
+        </div>
+        <button class="strip-arrow right" data-dir="right">&#8250;</button>
       </div>
     </div>
 
@@ -383,17 +347,42 @@ footer{position:relative;z-index:1;padding:28px 40px;display:flex;justify-conten
         <span class="client-name">Chomba Studio</span>
         <span class="client-tag ct-branding">Branding · Manual de Marca</span>
       </div>
-      <div class="bento bento-r4" data-gallery="chomba">
-        <div class="bc" data-src="img/chomba-studio/ch-8.jpg" data-type="img"><img src="img/chomba-studio/ch-8.jpg" alt="Chomba Studio"><div class="bc-label">Overview</div></div>
-        <div class="bc" data-src="img/chomba-studio/ch-1.jpg" data-type="img"><img src="img/chomba-studio/ch-1.jpg" alt="Chomba Studio"><div class="bc-label">Manual</div></div>
-        <div class="bc" data-src="img/chomba-studio/ch-2.jpg" data-type="img"><img src="img/chomba-studio/ch-2.jpg" alt="Chomba Studio"><div class="bc-label">Logotipo</div></div>
+      <div class="strip-wrap">
+        <button class="strip-arrow left" data-dir="left">&#8249;</button>
+        <div class="strip" data-gallery="chomba">
+          <div class="strip-item" data-src="img/chomba-studio/ch-1.jpg" data-type="img"><img src="img/chomba-studio/ch-1.jpg" alt="Chomba Studio"><div class="si-label">Manual de Marca</div></div>
+          <div class="strip-item" data-src="img/chomba-studio/ch-2.jpg" data-type="img"><img src="img/chomba-studio/ch-2.jpg" alt="Chomba Studio"><div class="si-label">Logotipo</div></div>
+          <div class="strip-item" data-src="img/chomba-studio/ch-3.jpg" data-type="img"><img src="img/chomba-studio/ch-3.jpg" alt="Chomba Studio"><div class="si-label">Sistema Visual</div></div>
+          <div class="strip-item" data-src="img/chomba-studio/ch-4.jpg" data-type="img"><img src="img/chomba-studio/ch-4.jpg" alt="Chomba Studio"><div class="si-label">Tipografía</div></div>
+          <div class="strip-item" data-src="img/chomba-studio/ch-5.jpg" data-type="img"><img src="img/chomba-studio/ch-5.jpg" alt="Chomba Studio"><div class="si-label">Paleta</div></div>
+          <div class="strip-item" data-src="img/chomba-studio/ch-6.jpg" data-type="img"><img src="img/chomba-studio/ch-6.jpg" alt="Chomba Studio"><div class="si-label">Aplicaciones</div></div>
+          <div class="strip-item" data-src="img/chomba-studio/ch-7.jpg" data-type="img"><img src="img/chomba-studio/ch-7.jpg" alt="Chomba Studio"><div class="si-label">Usos</div></div>
+          <div class="strip-item" data-src="img/chomba-studio/ch-8.jpg" data-type="img"><img src="img/chomba-studio/ch-8.jpg" alt="Chomba Studio"><div class="si-label">Overview</div></div>
+        </div>
+        <button class="strip-arrow right" data-dir="right">&#8250;</button>
       </div>
-      <div class="bento bento-r6" data-gallery="chomba">
-        <div class="bc" data-src="img/chomba-studio/ch-3.jpg" data-type="img"><img src="img/chomba-studio/ch-3.jpg" alt="Chomba Studio"><div class="bc-label">Sistema Visual</div></div>
-        <div class="bc" data-src="img/chomba-studio/ch-4.jpg" data-type="img"><img src="img/chomba-studio/ch-4.jpg" alt="Chomba Studio"><div class="bc-label">Tipografía</div></div>
-        <div class="bc" data-src="img/chomba-studio/ch-5.jpg" data-type="img"><img src="img/chomba-studio/ch-5.jpg" alt="Chomba Studio"><div class="bc-label">Paleta</div></div>
-        <div class="bc" data-src="img/chomba-studio/ch-6.jpg" data-type="img"><img src="img/chomba-studio/ch-6.jpg" alt="Chomba Studio"><div class="bc-label">Aplicaciones</div></div>
-        <div class="bc" data-src="img/chomba-studio/ch-7.jpg" data-type="img"><img src="img/chomba-studio/ch-7.jpg" alt="Chomba Studio"><div class="bc-label">Usos</div></div>
+    </div>
+
+    <!-- LIDHERMA -->
+    <div class="client-block" data-cat="branding">
+      <div class="client-header">
+        <span class="client-name">Lidherma</span>
+        <span class="client-tag ct-branding">Branding · Art Direction</span>
+      </div>
+      <div class="strip-wrap">
+        <button class="strip-arrow left" data-dir="left">&#8249;</button>
+        <div class="strip" data-gallery="lidherma">
+          <div class="strip-item" data-src="img/lidherma/l-1.jpg" data-type="img"><img src="img/lidherma/l-1.jpg" alt="Lidherma"><div class="si-label">Identidad</div></div>
+          <div class="strip-item" data-src="img/lidherma/l-2.jpg" data-type="img"><img src="img/lidherma/l-2.jpg" alt="Lidherma"><div class="si-label">Campaña</div></div>
+          <div class="strip-item" data-src="img/lidherma/l-3.jpg" data-type="img"><img src="img/lidherma/l-3.jpg" alt="Lidherma"><div class="si-label">Piezas</div></div>
+          <div class="strip-item" data-src="img/lidherma/l-4.jpg" data-type="img"><img src="img/lidherma/l-4.jpg" alt="Lidherma"><div class="si-label">Social Media</div></div>
+          <div class="strip-item" data-src="img/lidherma/l-5.jpg" data-type="img"><img src="img/lidherma/l-5.jpg" alt="Lidherma"><div class="si-label">Key Visual</div></div>
+          <div class="strip-item" data-src="img/lidherma/l-6.jpg" data-type="img"><img src="img/lidherma/l-6.jpg" alt="Lidherma"><div class="si-label">Diseño</div></div>
+          <div class="strip-item" data-src="img/lidherma/l-7.jpg" data-type="img"><img src="img/lidherma/l-7.jpg" alt="Lidherma"><div class="si-label">Art Direction</div></div>
+          <div class="strip-item" data-src="img/lidherma/l-8.jpg" data-type="img"><img src="img/lidherma/l-8.jpg" alt="Lidherma"><div class="si-label">Editorial</div></div>
+          <div class="strip-item" data-src="img/lidherma/l-9.jpg" data-type="img"><img src="img/lidherma/l-9.jpg" alt="Lidherma"><div class="si-label">Comunicación</div></div>
+        </div>
+        <button class="strip-arrow right" data-dir="right">&#8250;</button>
       </div>
     </div>
 
@@ -403,33 +392,29 @@ footer{position:relative;z-index:1;padding:28px 40px;display:flex;justify-conten
         <span class="client-name">Erenzia Beauty</span>
         <span class="client-tag ct-ui">Dirección de Arte · Graphic Design · UX</span>
       </div>
-      <div class="bento bento-r1" data-gallery="erenzia">
-        <div class="bc" data-src="img/erenzia-arte/ea-1.mp4" data-type="video"><video autoplay muted loop playsinline src="img/erenzia-arte/ea-1.mp4"></video><div class="bc-label">Idea 1</div></div>
-        <div class="bc" data-src="img/erenzia-arte/ea-4.mp4" data-type="video"><video autoplay muted loop playsinline src="img/erenzia-arte/ea-4.mp4"></video><div class="bc-label">Cyber Monday</div></div>
-        <div class="bc" data-src="img/erenzia-arte/ea-5.mp4" data-type="video"><video autoplay muted loop playsinline src="img/erenzia-arte/ea-5.mp4"></video><div class="bc-label">Idea 5</div></div>
-      </div>
-      <div class="bento bento-r2" data-gallery="erenzia">
-        <div class="bc" data-src="img/erenzia-arte/ea-2.mp4" data-type="video"><video autoplay muted loop playsinline src="img/erenzia-arte/ea-2.mp4"></video><div class="bc-label">Black Friday v1</div></div>
-        <div class="bc" data-src="img/erenzia-arte/ea-3.mp4" data-type="video"><video autoplay muted loop playsinline src="img/erenzia-arte/ea-3.mp4"></video><div class="bc-label">Black Friday v2</div></div>
-        <div class="bc" data-src="img/erenzia-graphic/eg-drops.mp4" data-type="video"><video autoplay muted loop playsinline src="img/erenzia-graphic/eg-drops.mp4"></video><div class="bc-label">Drops</div></div>
-        <div class="bc" data-src="img/erenzia-ux/eu-1.jpg" data-type="img"><img src="img/erenzia-ux/eu-1.jpg" alt="Erenzia UX"><div class="bc-label">Quiz UX</div></div>
-      </div>
-      <div class="bento bento-r5" data-gallery="erenzia">
-        <div class="bc" data-src="img/erenzia-graphic/eg-3.jpg" data-type="img"><img src="img/erenzia-graphic/eg-3.jpg" alt="Erenzia"><div class="bc-label">Earth Day</div></div>
-        <div class="bc" data-src="img/erenzia-graphic/eg-7.jpg" data-type="img"><img src="img/erenzia-graphic/eg-7.jpg" alt="Erenzia"><div class="bc-label">January Hydrate</div></div>
-        <div class="bc" data-src="img/erenzia-graphic/eg-8.jpg" data-type="img"><img src="img/erenzia-graphic/eg-8.jpg" alt="Erenzia"><div class="bc-label">January Nourish</div></div>
-      </div>
-      <div class="bento bento-r8" data-gallery="erenzia">
-        <div class="bc" data-src="img/erenzia-graphic/eg-9.jpg" data-type="img"><img src="img/erenzia-graphic/eg-9.jpg" alt="Erenzia"><div class="bc-label">Lunar New Year</div></div>
-        <div class="bc" data-src="img/erenzia-graphic/eg-4.jpg" data-type="img"><img src="img/erenzia-graphic/eg-4.jpg" alt="Erenzia"><div class="bc-label">Brand Intro S1</div></div>
-        <div class="bc" data-src="img/erenzia-graphic/eg-5.jpg" data-type="img"><img src="img/erenzia-graphic/eg-5.jpg" alt="Erenzia"><div class="bc-label">Brand Intro S3</div></div>
-        <div class="bc" data-src="img/erenzia-graphic/eg-6.jpg" data-type="img"><img src="img/erenzia-graphic/eg-6.jpg" alt="Erenzia"><div class="bc-label">Brand Intro S4</div></div>
-      </div>
-      <div class="bento bento-r2" data-gallery="erenzia">
-        <div class="bc" data-src="img/erenzia-graphic/eg-1.jpg" data-type="img"><img src="img/erenzia-graphic/eg-1.jpg" alt="Erenzia"><div class="bc-label">14-12</div></div>
-        <div class="bc" data-src="img/erenzia-graphic/eg-2.jpg" data-type="img"><img src="img/erenzia-graphic/eg-2.jpg" alt="Erenzia"><div class="bc-label">21-12</div></div>
-        <div class="bc" data-src="img/erenzia-graphic/eg-10.jpg" data-type="img"><img src="img/erenzia-graphic/eg-10.jpg" alt="Erenzia"><div class="bc-label">Post 2-12</div></div>
-        <div class="bc" data-src="img/erenzia-graphic/eg-11.jpg" data-type="img"><img src="img/erenzia-graphic/eg-11.jpg" alt="Erenzia"><div class="bc-label">Post 8-12</div></div>
+      <div class="strip-wrap">
+        <button class="strip-arrow left" data-dir="left">&#8249;</button>
+        <div class="strip" data-gallery="erenzia">
+          <div class="strip-item" data-src="img/erenzia-arte/ea-1.mp4" data-type="video"><video autoplay muted loop playsinline src="img/erenzia-arte/ea-1.mp4"></video><div class="si-label">Idea 1</div></div>
+          <div class="strip-item" data-src="img/erenzia-arte/ea-2.mp4" data-type="video"><video autoplay muted loop playsinline src="img/erenzia-arte/ea-2.mp4"></video><div class="si-label">Black Friday v1</div></div>
+          <div class="strip-item" data-src="img/erenzia-arte/ea-3.mp4" data-type="video"><video autoplay muted loop playsinline src="img/erenzia-arte/ea-3.mp4"></video><div class="si-label">Black Friday v2</div></div>
+          <div class="strip-item" data-src="img/erenzia-arte/ea-4.mp4" data-type="video"><video autoplay muted loop playsinline src="img/erenzia-arte/ea-4.mp4"></video><div class="si-label">Cyber Monday</div></div>
+          <div class="strip-item" data-src="img/erenzia-arte/ea-5.mp4" data-type="video"><video autoplay muted loop playsinline src="img/erenzia-arte/ea-5.mp4"></video><div class="si-label">Idea 5</div></div>
+          <div class="strip-item" data-src="img/erenzia-graphic/eg-drops.mp4" data-type="video"><video autoplay muted loop playsinline src="img/erenzia-graphic/eg-drops.mp4"></video><div class="si-label">Drops</div></div>
+          <div class="strip-item" data-src="img/erenzia-graphic/eg-1.jpg" data-type="img"><img src="img/erenzia-graphic/eg-1.jpg" alt="Erenzia"><div class="si-label">14-12</div></div>
+          <div class="strip-item" data-src="img/erenzia-graphic/eg-2.jpg" data-type="img"><img src="img/erenzia-graphic/eg-2.jpg" alt="Erenzia"><div class="si-label">21-12</div></div>
+          <div class="strip-item" data-src="img/erenzia-graphic/eg-3.jpg" data-type="img"><img src="img/erenzia-graphic/eg-3.jpg" alt="Erenzia"><div class="si-label">Earth Day</div></div>
+          <div class="strip-item" data-src="img/erenzia-graphic/eg-4.jpg" data-type="img"><img src="img/erenzia-graphic/eg-4.jpg" alt="Erenzia"><div class="si-label">Brand Intro S1</div></div>
+          <div class="strip-item" data-src="img/erenzia-graphic/eg-5.jpg" data-type="img"><img src="img/erenzia-graphic/eg-5.jpg" alt="Erenzia"><div class="si-label">Brand Intro S3</div></div>
+          <div class="strip-item" data-src="img/erenzia-graphic/eg-6.jpg" data-type="img"><img src="img/erenzia-graphic/eg-6.jpg" alt="Erenzia"><div class="si-label">Brand Intro S4</div></div>
+          <div class="strip-item" data-src="img/erenzia-graphic/eg-7.jpg" data-type="img"><img src="img/erenzia-graphic/eg-7.jpg" alt="Erenzia"><div class="si-label">January Hydrate</div></div>
+          <div class="strip-item" data-src="img/erenzia-graphic/eg-8.jpg" data-type="img"><img src="img/erenzia-graphic/eg-8.jpg" alt="Erenzia"><div class="si-label">January Nourish</div></div>
+          <div class="strip-item" data-src="img/erenzia-graphic/eg-9.jpg" data-type="img"><img src="img/erenzia-graphic/eg-9.jpg" alt="Erenzia"><div class="si-label">Lunar New Year</div></div>
+          <div class="strip-item" data-src="img/erenzia-graphic/eg-10.jpg" data-type="img"><img src="img/erenzia-graphic/eg-10.jpg" alt="Erenzia"><div class="si-label">Post 2-12</div></div>
+          <div class="strip-item" data-src="img/erenzia-graphic/eg-11.jpg" data-type="img"><img src="img/erenzia-graphic/eg-11.jpg" alt="Erenzia"><div class="si-label">Post 8-12</div></div>
+          <div class="strip-item" data-src="img/erenzia-ux/eu-1.jpg" data-type="img"><img src="img/erenzia-ux/eu-1.jpg" alt="Erenzia UX"><div class="si-label">Quiz UX</div></div>
+        </div>
+        <button class="strip-arrow right" data-dir="right">&#8250;</button>
       </div>
     </div>
 
@@ -439,9 +424,10 @@ footer{position:relative;z-index:1;padding:28px 40px;display:flex;justify-conten
         <span class="client-name">Amazon Music</span>
         <span class="client-tag ct-ui">Dirección de Arte · Key Visuals</span>
       </div>
-      <div class="bento bento-r7" data-gallery="amazon">
-        <div class="bc" data-src="img/amazon-music/am-1.jpg" data-type="img"><img src="img/amazon-music/am-1.jpg" alt="Amazon Music"><div class="bc-label">Playful v2</div></div>
-        <div class="bc" data-src="img/amazon-music/am-1.jpg" data-type="img"><img src="img/amazon-music/am-1.jpg" alt="Amazon Music"><div class="bc-label">Key Visual</div></div>
+      <div class="strip-wrap">
+        <div class="strip" data-gallery="amazon">
+          <div class="strip-item" data-src="img/amazon-music/am-1.jpg" data-type="img"><img src="img/amazon-music/am-1.jpg" alt="Amazon Music"><div class="si-label">Playful v2</div></div>
+        </div>
       </div>
     </div>
 
@@ -548,13 +534,30 @@ document.addEventListener('keydown', e => {
   if (e.key === 'ArrowRight') { lbIdx = (lbIdx + 1) % lbItems.length; lbRender(); }
 });
 
-// Wire up bento cells to lightbox — group by parent client-block
+// Strip arrows
+document.querySelectorAll('.strip-wrap').forEach(wrap => {
+  const strip = wrap.querySelector('.strip');
+  const leftBtn = wrap.querySelector('.strip-arrow.left');
+  const rightBtn = wrap.querySelector('.strip-arrow.right');
+  if (!strip || !leftBtn || !rightBtn) return;
+
+  const scroll = (dir) => { strip.scrollBy({ left: dir * 320, behavior: 'smooth' }); };
+  leftBtn.addEventListener('click', () => scroll(-1));
+  rightBtn.addEventListener('click', () => scroll(1));
+
+  const update = () => {
+    leftBtn.classList.toggle('hidden', strip.scrollLeft < 10);
+    rightBtn.classList.toggle('hidden', strip.scrollLeft + strip.clientWidth >= strip.scrollWidth - 10);
+  };
+  strip.addEventListener('scroll', update);
+  update();
+});
+
+// Wire up strips to lightbox
 document.querySelectorAll('.client-block').forEach(block => {
-  const cells = [...block.querySelectorAll('.bc')];
+  const cells = [...block.querySelectorAll('.strip-item')];
   const items = cells.map(el => ({ src: el.dataset.src, type: el.dataset.type }));
-  cells.forEach((el, i) => {
-    el.addEventListener('click', () => lbOpen(items, i));
-  });
+  cells.forEach((el, i) => { el.addEventListener('click', () => lbOpen(items, i)); });
 });
 
 // Skill bars — animate on scroll into view
