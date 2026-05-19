@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sofía Correa — Creative Director</title>
+<title>Sofía Correa — Graphic Designer</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--rosa:#ff71ac;--celeste:#9af5f7;--lila:#d17af4;--bg:#e6e6e6;--text:#1a1a1a;--muted:#666;--glass:rgba(255,255,255,0.38);--glass-border:rgba(255,255,255,0.55)}
@@ -252,7 +251,7 @@ footer{position:relative;z-index:1;padding:28px 40px;display:flex;justify-conten
 
   <!-- HERO -->
   <section class="hero" id="inicio" style="border:none;padding-top:80px">
-    <p class="hero-tag" data-es="Creative Director · Buenos Aires" data-en="Creative Director · Buenos Aires">Creative Director · Buenos Aires</p>
+    <p class="hero-tag" data-es="Graphic Designer · Art and Creative Direction" data-en="Graphic Designer · Art and Creative Direction">Graphic Designer · Art and Creative Direction</p>
     <h1>Sofía<br><em>Correa</em></h1>
     <div class="pills">
       <span class="pill pr">Creative Direction</span>
@@ -605,7 +604,7 @@ document.addEventListener('keydown', e => {
   if (e.key === 'ArrowRight') { lbIdx = (lbIdx + 1) % lbItems.length; lbRender(); }
 });
 
-// Looping strips + lightbox
+// Passive infinite strips + lightbox
 document.querySelectorAll('.client-block').forEach(block => {
   const wrap = block.querySelector('.strip-wrap');
   const strip = block.querySelector('.strip');
@@ -615,47 +614,52 @@ document.querySelectorAll('.client-block').forEach(block => {
 
   const originals = [...strip.querySelectorAll('.strip-item')];
   const items = originals.map(el => ({ src: el.dataset.src, type: el.dataset.type }));
-  let current = 0;
+  let moving = false;
+
+  const getGap = () => parseFloat(getComputedStyle(strip).columnGap || getComputedStyle(strip).gap) || 0;
+  const getStep = (el) => el ? el.getBoundingClientRect().width + getGap() : 320;
+  const jumpBy = (amount) => {
+    const prevBehavior = strip.style.scrollBehavior;
+    strip.style.scrollBehavior = 'auto';
+    strip.scrollLeft += amount;
+    strip.style.scrollBehavior = prevBehavior;
+  };
+  const afterScroll = (callback) => {
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      done = true;
+      strip.removeEventListener('scrollend', finish);
+      callback();
+    };
+    strip.addEventListener('scrollend', finish, { once: true });
+    window.setTimeout(finish, 650);
+  };
 
   if (originals.length > 1) {
-    const firstClone = originals[0].cloneNode(true);
-    const lastClone = originals[originals.length - 1].cloneNode(true);
-    firstClone.dataset.clone = 'true';
-    lastClone.dataset.clone = 'true';
-    strip.insertBefore(lastClone, strip.firstChild);
-    strip.appendChild(firstClone);
-
-    const cells = () => [...strip.querySelectorAll('.strip-item')];
-    const goTo = (index, behavior = 'smooth') => {
-      const target = cells()[index + 1];
-      if (target) strip.scrollTo({ left: target.offsetLeft, behavior });
-    };
-    const resetAfterLoop = (index) => window.setTimeout(() => {
-      current = index;
-      goTo(current, 'auto');
-    }, 420);
-
-    requestAnimationFrame(() => goTo(current, 'auto'));
-    window.addEventListener('resize', () => requestAnimationFrame(() => goTo(current, 'auto')));
-
     rightBtn.addEventListener('click', () => {
-      if (current === originals.length - 1) {
-        goTo(originals.length, 'smooth');
-        resetAfterLoop(0);
-      } else {
-        current += 1;
-        goTo(current);
-      }
+      if (moving) return;
+      moving = true;
+      const first = strip.querySelector('.strip-item');
+      const step = getStep(first);
+      strip.scrollBy({ left: step, behavior: 'smooth' });
+      afterScroll(() => {
+        strip.appendChild(first);
+        jumpBy(-step);
+        moving = false;
+      });
     });
 
     leftBtn.addEventListener('click', () => {
-      if (current === 0) {
-        goTo(-1, 'smooth');
-        resetAfterLoop(originals.length - 1);
-      } else {
-        current -= 1;
-        goTo(current);
-      }
+      if (moving) return;
+      moving = true;
+      const cells = strip.querySelectorAll('.strip-item');
+      const last = cells[cells.length - 1];
+      const step = getStep(last);
+      strip.insertBefore(last, strip.firstChild);
+      jumpBy(step);
+      strip.scrollBy({ left: -step, behavior: 'smooth' });
+      afterScroll(() => { moving = false; });
     });
   } else {
     leftBtn.addEventListener('click', () => strip.scrollBy({ left: -320, behavior: 'smooth' }));
