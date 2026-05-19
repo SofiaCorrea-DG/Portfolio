@@ -71,10 +71,18 @@ section{padding:72px 0;position:relative;z-index:1}
 .sec-title{font-size:clamp(28px,4vw,44px);font-weight:300;letter-spacing:-.02em;margin-bottom:16px}
 
 /* ── SOBRE MI ── */
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.about-grid{display:grid;grid-template-columns:1fr .82fr;gap:56px;align-items:center}
 .about-text{font-size:14px;line-height:1.8;color:var(--muted)}
 .about-text strong{color:var(--text);font-weight:500}
 .about-text p+p{margin-top:14px}
+.profile-stack{position:relative;justify-self:center;width:min(300px,100%)}
+.profile-stack::before{content:'';position:absolute;inset:18px -18px -18px 18px;background:var(--rosa);border-radius:6px;opacity:.9;transform:rotate(5deg);z-index:0}
+.profile-card{position:relative;z-index:1;background:#fff;padding:12px 12px 42px;border-radius:3px;box-shadow:0 18px 44px rgba(0,0,0,.16);transform:rotate(-3deg)}
+.profile-card img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:2px;filter:grayscale(1)}
+.profile-note{position:absolute;left:18px;right:18px;bottom:13px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:center}
+
+/* ── SKILLS ── */
+.skills-section{padding-top:32px}
 
 /* skills grid 3 col */
 .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
@@ -179,6 +187,7 @@ footer{position:relative;z-index:1;padding:28px 40px;display:flex;justify-conten
   .page{padding:0 24px}
   .hero h1{font-size:clamp(44px,13vw,72px)}
   .about-grid{grid-template-columns:1fr}
+  .profile-stack{margin-top:8px}
   .skills-grid{grid-template-columns:repeat(2,1fr)}
   .skill-item:nth-child(1){border-radius:14px 0 0 0}
   .skill-item:nth-child(2){border-radius:0 14px 0 0}
@@ -275,6 +284,18 @@ footer{position:relative;z-index:1;padding:28px 40px;display:flex;justify-conten
           <p><span data-es="Hablo mucho y muy rápido, y diseño igual de rápido, pero con criterio." data-en="I talk a lot and very fast, and I design just as fast — but with purpose.">Hablo mucho y muy rápido, y diseño igual de rápido, pero con criterio.</span></p>
         </div>
       </div>
+      <div class="profile-stack">
+        <figure class="profile-card">
+          <img src="img/perfil/sofia-correa.jpg" alt="Sofía Correa">
+          <figcaption class="profile-note">Sofía Correa</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="skills-section">
+    <p class="sec-label">Skills</p>
       <div class="skills-grid">
         <div class="skill-item"><div class="sk-name">Adobe Illustrator</div><div class="sk-bar"><div class="sk-fill" style="--w:95%"></div></div></div>
         <div class="skill-item"><div class="sk-name">Adobe Photoshop</div><div class="sk-bar"><div class="sk-fill" style="--w:93%"></div></div></div>
@@ -287,7 +308,6 @@ footer{position:relative;z-index:1;padding:28px 40px;display:flex;justify-conten
         <div class="skill-item"><div class="sk-name" data-es="Inglés Avanzado" data-en="Advanced English">Inglés Avanzado</div><div class="sk-bar"><div class="sk-fill" style="--w:90%"></div></div></div>
         <div class="skill-item"><div class="sk-name" data-es="HTML Avanzado" data-en="Advanced HTML">HTML Avanzado</div><div class="sk-bar"><div class="sk-fill" style="--w:90%"></div></div></div>
       </div>
-    </div>
   </section>
 
   <!-- SERVICIOS -->
