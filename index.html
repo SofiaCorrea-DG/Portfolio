@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -28,7 +27,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 .nav-links a{font-size:12px;color:var(--muted);text-decoration:none;letter-spacing:0.06em;text-transform:uppercase;transition:color .2s}
 .nav-links a:hover{color:var(--rosa)}
 
-/* hamburger */
+/* LANG TOGGLE */
+.lang-toggle{display:flex;align-items:center;gap:4px;background:var(--glass);border:1px solid var(--glass-border);border-radius:100px;padding:4px;backdrop-filter:blur(8px);margin-left:16px}
+.lang-btn{background:none;border:none;cursor:pointer;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;transition:background .2s;opacity:.45}
+.lang-btn.active{background:rgba(255,255,255,.6);opacity:1}
 .nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
 .nav-toggle span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:all .3s}
 .nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
@@ -218,28 +220,32 @@ footer{position:relative;z-index:1;padding:28px 40px;display:flex;justify-conten
 <nav>
   <span class="nav-logo">Sofía Correa</span>
   <ul class="nav-links">
-    <li><a href="#sobre-mi">Sobre mí</a></li>
-    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#sobre-mi" data-es="Sobre mí" data-en="About me">Sobre mí</a></li>
+    <li><a href="#servicios" data-es="Servicios" data-en="Services">Servicios</a></li>
     <li><a href="#portfolio">Portfolio</a></li>
-    <li><a href="#contacto">Contacto</a></li>
+    <li><a href="#contacto" data-es="Contacto" data-en="Contact">Contacto</a></li>
   </ul>
   <button class="nav-toggle" id="toggle" aria-label="Menú">
     <span></span><span></span><span></span>
   </button>
+  <div class="lang-toggle">
+    <button class="lang-btn active" id="btn-es" title="Español">🇦🇷</button>
+    <button class="lang-btn" id="btn-en" title="English">🇺🇸</button>
+  </div>
 </nav>
 
 <div class="mobile-menu" id="mobile-menu">
-  <a href="#sobre-mi">Sobre mí</a>
-  <a href="#servicios">Servicios</a>
+  <a href="#sobre-mi" data-es="Sobre mí" data-en="About me">Sobre mí</a>
+  <a href="#servicios" data-es="Servicios" data-en="Services">Servicios</a>
   <a href="#portfolio">Portfolio</a>
-  <a href="#contacto">Contacto</a>
+  <a href="#contacto" data-es="Contacto" data-en="Contact">Contacto</a>
 </div>
 
 <div class="page">
 
   <!-- HERO -->
   <section class="hero" id="inicio" style="border:none;padding-top:80px">
-    <p class="hero-tag">Creative Director · Buenos Aires</p>
+    <p class="hero-tag" data-es="Creative Director · Buenos Aires" data-en="Creative Director · Buenos Aires">Creative Director · Buenos Aires</p>
     <h1>Sofía<br><em>Correa</em></h1>
     <div class="pills">
       <span class="pill pr">Creative Direction</span>
@@ -248,19 +254,19 @@ footer{position:relative;z-index:1;padding:28px 40px;display:flex;justify-conten
       <span class="pill pr">Packaging</span>
       <span class="pill pl">UI · UX</span>
     </div>
-    <p class="hero-bio">Diseño identidades que tienen algo para decir.<br>Dirección de Arte, comunicación estratégica y Diseño Gráfico.</p>
-    <div class="hero-cta"><a href="#portfolio" class="btn btn-primary">Ver trabajos</a></div>
+    <p class="hero-bio" data-es="Diseño identidades que tienen algo para decir.<br>Dirección de Arte, comunicación estratégica y Diseño Gráfico." data-en="I design identities that have something to say.<br>Art Direction, strategic communication and Graphic Design.">Diseño identidades que tienen algo para decir.<br>Dirección de Arte, comunicación estratégica y Diseño Gráfico.</p>
+    <div class="hero-cta"><a href="#portfolio" class="btn btn-primary" data-es="Ver trabajos" data-en="See work">Ver trabajos</a></div>
   </section>
 
   <!-- SOBRE MI -->
   <section id="sobre-mi" style="padding-top:72px">
-    <p class="sec-label">Sobre mí</p>
+    <p class="sec-label" data-es="Sobre mí" data-en="About me">Sobre mí</p>
     <div class="about-grid">
       <div>
-        <h2 class="sec-title">Hola,<br>soy Chini.</h2>
+        <h2 class="sec-title" data-es="Hola,<br>soy Chini." data-en="Hi,<br>I'm Chini.">Hola,<br>soy Chini.</h2>
         <div class="about-text">
-          <p>Soy una persona proactiva y responsable a la que le gusta siempre estar en <strong>constante aprendizaje</strong>. Tengo 9 años de experiencia y conocimientos en <strong>Marketing Digital, Comunicación, Dirección de Arte y Diseño Gráfico</strong>.</p>
-          <p>Hablo mucho y muy rápido, y diseño igual de rápido, pero con criterio.</p>
+          <p><span data-es="Soy una persona proactiva y responsable a la que le gusta siempre estar en <strong>constante aprendizaje</strong>. Tengo 9 años de experiencia y conocimientos en <strong>Marketing Digital, Comunicación, Dirección de Arte y Diseño Gráfico</strong>." data-en="I'm a proactive and responsible person who loves being in a constant state of <strong>learning</strong>. I have 9 years of experience in <strong>Digital Marketing, Communication, Art Direction and Graphic Design</strong>.">Soy una persona proactiva y responsable a la que le gusta siempre estar en <strong>constante aprendizaje</strong>. Tengo 9 años de experiencia y conocimientos en <strong>Marketing Digital, Comunicación, Dirección de Arte y Diseño Gráfico</strong>.</span></p>
+          <p><span data-es="Hablo mucho y muy rápido, y diseño igual de rápido, pero con criterio." data-en="I talk a lot and very fast, and I design just as fast — but with purpose.">Hablo mucho y muy rápido, y diseño igual de rápido, pero con criterio.</span></p>
         </div>
       </div>
       <div class="skills-grid">
@@ -272,21 +278,22 @@ footer{position:relative;z-index:1;padding:28px 40px;display:flex;justify-conten
         <div class="skill-item"><div class="sk-name">Ilustración Digital</div><div class="sk-bar"><div class="sk-fill" style="--w:78%"></div></div></div>
         <div class="skill-item"><div class="sk-name">IA Generativa</div><div class="sk-bar"><div class="sk-fill" style="--w:85%"></div></div></div>
         <div class="skill-item"><div class="sk-name">e-Mail Marketing</div><div class="sk-bar"><div class="sk-fill" style="--w:75%"></div></div></div>
-        <div class="skill-item"><div class="sk-name">Inglés Avanzado</div><div class="sk-bar"><div class="sk-fill" style="--w:90%"></div></div></div>
+        <div class="skill-item"><div class="sk-name" data-es="Inglés Avanzado" data-en="Advanced English">Inglés Avanzado</div><div class="sk-bar"><div class="sk-fill" style="--w:90%"></div></div></div>
+        <div class="skill-item"><div class="sk-name" data-es="HTML Avanzado" data-en="Advanced HTML">HTML Avanzado</div><div class="sk-bar"><div class="sk-fill" style="--w:90%"></div></div></div>
       </div>
     </div>
   </section>
 
   <!-- SERVICIOS -->
   <section id="servicios">
-    <p class="sec-label">Servicios</p>
+    <p class="sec-label" data-es="Servicios" data-en="Services">Servicios</p>
     <div class="services-grid">
-      <div class="srv"><div class="srv-icon si-lila">✦</div><div class="srv-name">Branding & Identidad</div><div class="srv-desc">Construcción de marca desde cero: naming, logotipo, paleta, tipografía y sistema visual completo.</div></div>
-      <div class="srv"><div class="srv-icon si-rosa">◈</div><div class="srv-name">Packaging</div><div class="srv-desc">Diseño de envases y etiquetas con foco en impacto en góndola y coherencia de marca.</div></div>
-      <div class="srv"><div class="srv-icon si-celeste">⊙</div><div class="srv-name">Social Media Design</div><div class="srv-desc">Piezas gráficas y contenido visual para redes con estrategia y estética consistente.</div></div>
-      <div class="srv"><div class="srv-icon si-mix">◻</div><div class="srv-name">UI · UX Design</div><div class="srv-desc">Diseño de interfaces digitales, apps y webs centradas en la experiencia del usuario.</div></div>
-      <div class="srv"><div class="srv-icon si-rosa">▲</div><div class="srv-name">Dirección de Arte</div><div class="srv-desc">Conceptualización y supervisión creativa para campañas 360, fotografía y producción audiovisual.</div></div>
-      <div class="srv"><div class="srv-icon si-lila">◎</div><div class="srv-name">Comunicación Institucional</div><div class="srv-desc">Estrategia y diseño para organismos públicos, ONGs y proyectos con narrativa política o social.</div></div>
+      <div class="srv"><div class="srv-icon si-lila">✦</div><div class="srv-name" data-es="Branding & Identidad" data-en="Branding & Identity">Branding & Identidad</div><div class="srv-desc"><span data-es="Construcción de marca desde cero: naming, logotipo, paleta, tipografía y sistema visual completo." data-en="Brand building from scratch: naming, logo, color palette, typography and full visual system.">Construcción de marca desde cero: naming, logotipo, paleta, tipografía y sistema visual completo.</span></div></div>
+      <div class="srv"><div class="srv-icon si-rosa">◈</div><div class="srv-name">Packaging</div><div class="srv-desc"><span data-es="Diseño de envases y etiquetas con foco en impacto en góndola y coherencia de marca." data-en="Packaging design focused on shelf impact and brand consistency.">Diseño de envases y etiquetas con foco en impacto en góndola y coherencia de marca.</span></div></div>
+      <div class="srv"><div class="srv-icon si-celeste">⊙</div><div class="srv-name">Social Media Design</div><div class="srv-desc"><span data-es="Piezas gráficas y contenido visual para redes con estrategia y estética consistente." data-en="Graphic pieces and visual content for social media with consistent strategy and aesthetics.">Piezas gráficas y contenido visual para redes con estrategia y estética consistente.</span></div></div>
+      <div class="srv"><div class="srv-icon si-mix">◻</div><div class="srv-name">UI · UX Design</div><div class="srv-desc"><span data-es="Diseño de interfaces digitales, apps y webs centradas en la experiencia del usuario." data-en="Digital interface design for apps and websites focused on user experience.">Diseño de interfaces digitales, apps y webs centradas en la experiencia del usuario.</span></div></div>
+      <div class="srv"><div class="srv-icon si-rosa">▲</div><div class="srv-name" data-es="Dirección de Arte" data-en="Art Direction">Dirección de Arte</div><div class="srv-desc"><span data-es="Conceptualización y supervisión creativa para campañas 360, fotografía y producción audiovisual." data-en="Creative concept and supervision for 360 campaigns, photography and audiovisual production.">Conceptualización y supervisión creativa para campañas 360, fotografía y producción audiovisual.</span></div></div>
+      <div class="srv"><div class="srv-icon si-lila">◎</div><div class="srv-name" data-es="Comunicación Institucional" data-en="Institutional Communication">Comunicación Institucional</div><div class="srv-desc"><span data-es="Estrategia y diseño para organismos públicos, ONGs y proyectos con narrativa política o social." data-en="Strategy and design for public institutions, NGOs and projects with political or social narratives.">Estrategia y diseño para organismos públicos, ONGs y proyectos con narrativa política o social.</span></div></div>
     </div>
   </section>
 
@@ -300,9 +307,9 @@ footer{position:relative;z-index:1;padding:28px 40px;display:flex;justify-conten
 
   <!-- PORTFOLIO -->
   <section id="portfolio">
-    <p class="sec-label">Portfolio</p>
+    <p class="sec-label" data-es="Portfolio" data-en="Portfolio">Portfolio</p>
     <div class="filter-row">
-      <button class="filter-btn active" data-filter="all">Todos</button>
+      <button class="filter-btn active" data-filter="all" data-es="Todos" data-en="All">Todos</button>
       <button class="filter-btn" data-filter="branding">Branding</button>
       <button class="filter-btn" data-filter="erenzia">Erenzia</button>
       <button class="filter-btn" data-filter="amazon">Amazon Music</button>
@@ -463,11 +470,11 @@ footer{position:relative;z-index:1;padding:28px 40px;display:flex;justify-conten
 
   <!-- CONTACTO -->
   <section id="contacto">
-    <p class="sec-label">Contacto</p>
+    <p class="sec-label" data-es="Contacto" data-en="Contact">Contacto</p>
     <div class="contact-wrap">
       <div>
-        <h2 class="sec-title">Trabajemos<br>juntos.</h2>
-        <p class="contact-intro">Si tenés un proyecto de <strong>branding, packaging o dirección de arte</strong>, escribime.</p>
+        <h2 class="sec-title" data-es="Trabajemos<br>juntos." data-en="Let's work<br>together.">Trabajemos<br>juntos.</h2>
+        <p class="contact-intro"><span data-es="Si tenés un proyecto de <strong>branding, packaging o dirección de arte</strong>, escribime." data-en="If you have a <strong>branding, packaging or art direction</strong> project, reach out.">Si tenés un proyecto de <strong>branding, packaging o dirección de arte</strong>, escribime.</span></p>
       </div>
       <div class="contact-cards">
         <a class="c-card" href="mailto:tamarasofiac@gmail.com">
@@ -486,6 +493,12 @@ footer{position:relative;z-index:1;padding:28px 40px;display:flex;justify-conten
           <div class="c-dot cd-rosa" style="font-size:10px;font-weight:700">in</div>
           <div><div class="c-label">LinkedIn</div><div class="c-val">Sofía Correa</div></div>
         </a>
+        <a class="c-card" href="assets/SofiaCorrea.pdf" download>
+          <div class="c-dot cd-lila">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+          </div>
+          <div><div class="c-label">CV</div><div class="c-val" data-es="Descargar CV" data-en="Download CV">Descargar CV</div></div>
+        </a>
       </div>
     </div>
   </section>
@@ -493,7 +506,7 @@ footer{position:relative;z-index:1;padding:28px 40px;display:flex;justify-conten
 </div>
 
 <footer>
-  <span class="ft">© 2026 Sofía Correa · Pilar, Buenos Aires</span>
+  <span class="ft"><span data-es="© 2026 Sofía Correa · Pilar, Buenos Aires" data-en="© 2026 Sofía Correa · Pilar, Buenos Aires">© 2026 Sofía Correa · Pilar, Buenos Aires</span></span>
   <div class="ft-dot"></div>
 </footer>
 
@@ -602,7 +615,20 @@ document.querySelectorAll('.client-block').forEach(block => {
   cells.forEach((el, i) => { el.addEventListener('click', () => lbOpen(items, i)); });
 });
 
-// Skill bars — animate on scroll into view
+// Language toggle
+const btnEs = document.getElementById('btn-es');
+const btnEn = document.getElementById('btn-en');
+
+function applyLang(lang) {
+  btnEs.classList.toggle('active', lang === 'es');
+  btnEn.classList.toggle('active', lang === 'en');
+  document.querySelectorAll('[data-es][data-en]').forEach(el => {
+    el.innerHTML = el.getAttribute('data-' + lang);
+  });
+}
+
+btnEs.addEventListener('click', () => applyLang('es'));
+btnEn.addEventListener('click', () => applyLang('en'));
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
