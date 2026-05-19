@@ -422,8 +422,6 @@ footer{position:relative;z-index:1;padding:28px 40px;display:flex;justify-conten
         <button class="strip-arrow left" data-dir="left">&#8249;</button>
         <div class="strip" data-gallery="chomba">
           <div class="strip-item" data-src="img/chomba-studio/ch-1.jpg" data-type="img"><img src="img/chomba-studio/ch-1.jpg" alt="Chomba Studio"><div class="si-label">Manual de Marca</div></div>
-          <div class="strip-item" data-src="img/chomba-studio/ch-2.jpg" data-type="img"><img src="img/chomba-studio/ch-2.jpg" alt="Chomba Studio"><div class="si-label">Logotipo</div></div>
-          <div class="strip-item" data-src="img/chomba-studio/ch-3.jpg" data-type="img"><img src="img/chomba-studio/ch-3.jpg" alt="Chomba Studio"><div class="si-label">Sistema Visual</div></div>
           <div class="strip-item" data-src="img/chomba-studio/ch-4.jpg" data-type="img"><img src="img/chomba-studio/ch-4.jpg" alt="Chomba Studio"><div class="si-label">Tipografía</div></div>
           <div class="strip-item" data-src="img/chomba-studio/ch-5.jpg" data-type="img"><img src="img/chomba-studio/ch-5.jpg" alt="Chomba Studio"><div class="si-label">Paleta</div></div>
           <div class="strip-item" data-src="img/chomba-studio/ch-6.jpg" data-type="img"><img src="img/chomba-studio/ch-6.jpg" alt="Chomba Studio"><div class="si-label">Aplicaciones</div></div>
@@ -606,39 +604,77 @@ document.addEventListener('keydown', e => {
   if (e.key === 'ArrowRight') { lbIdx = (lbIdx + 1) % lbItems.length; lbRender(); }
 });
 
-// Strip arrows — infinite loop
-document.querySelectorAll('.strip-wrap').forEach(wrap => {
-  const strip = wrap.querySelector('.strip');
-  const leftBtn = wrap.querySelector('.strip-arrow.left');
-  const rightBtn = wrap.querySelector('.strip-arrow.right');
-  if (!strip || !leftBtn || !rightBtn) return;
+// Infinite strips + lightbox
+document.querySelectorAll('.client-block').forEach(block => {
+  const wrap = block.querySelector('.strip-wrap');
+  const strip = block.querySelector('.strip');
+  const leftBtn = block.querySelector('.strip-arrow.left');
+  const rightBtn = block.querySelector('.strip-arrow.right');
+  if (!wrap || !strip || !leftBtn || !rightBtn) return;
 
+  const originals = [...strip.querySelectorAll('.strip-item')];
+  const items = originals.map(el => ({ src: el.dataset.src, type: el.dataset.type }));
   const scrollAmt = 320;
 
-  rightBtn.addEventListener('click', () => {
-    const atEnd = strip.scrollLeft + strip.clientWidth >= strip.scrollWidth - 10;
-    if (atEnd) {
-      strip.scrollTo({ left: 0, behavior: 'smooth' });
-    } else {
-      strip.scrollBy({ left: scrollAmt, behavior: 'smooth' });
-    }
-  });
+  if (originals.length > 1) {
+    const copiesEachSide = 5;
+    const beforeFrag = document.createDocumentFragment();
+    const afterFrag = document.createDocumentFragment();
 
-  leftBtn.addEventListener('click', () => {
-    const atStart = strip.scrollLeft < 10;
-    if (atStart) {
-      strip.scrollTo({ left: strip.scrollWidth, behavior: 'smooth' });
-    } else {
-      strip.scrollBy({ left: -scrollAmt, behavior: 'smooth' });
+    for (let i = 0; i < copiesEachSide; i++) {
+      originals.forEach(el => {
+        const clone = el.cloneNode(true);
+        clone.dataset.clone = 'true';
+        beforeFrag.appendChild(clone);
+      });
+      originals.forEach(el => {
+        const clone = el.cloneNode(true);
+        clone.dataset.clone = 'true';
+        afterFrag.appendChild(clone);
+      });
     }
-  });
-});
 
-// Wire up strips to lightbox
-document.querySelectorAll('.client-block').forEach(block => {
-  const cells = [...block.querySelectorAll('.strip-item')];
-  const items = cells.map(el => ({ src: el.dataset.src, type: el.dataset.type }));
-  cells.forEach((el, i) => { el.addEventListener('click', () => lbOpen(items, i)); });
+    strip.insertBefore(beforeFrag, strip.firstChild);
+    strip.appendChild(afterFrag);
+
+    const getLoop = () => {
+      const cells = [...strip.querySelectorAll('.strip-item')];
+      const originalStart = copiesEachSide * originals.length;
+      const nextStart = originalStart + originals.length;
+      const start = cells[originalStart].offsetLeft;
+      const segment = cells[nextStart].offsetLeft - start;
+      return { start, segment };
+    };
+    const jumpToMiddle = () => { strip.scrollLeft = getLoop().start; };
+    let ticking = false;
+
+    const normalize = () => {
+      const { segment } = getLoop();
+      if (strip.scrollLeft < segment) strip.scrollLeft += segment * copiesEachSide;
+      if (strip.scrollLeft > strip.scrollWidth - strip.clientWidth - segment) {
+        strip.scrollLeft -= segment * copiesEachSide;
+      }
+    };
+
+    requestAnimationFrame(jumpToMiddle);
+    strip.addEventListener('scroll', () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        normalize();
+        ticking = false;
+      });
+    });
+    window.addEventListener('resize', () => requestAnimationFrame(jumpToMiddle));
+  }
+
+  leftBtn.addEventListener('click', () => strip.scrollBy({ left: -scrollAmt, behavior: 'smooth' }));
+  rightBtn.addEventListener('click', () => strip.scrollBy({ left: scrollAmt, behavior: 'smooth' }));
+
+  strip.querySelectorAll('.strip-item').forEach(el => {
+    const idx = items.findIndex(item => item.src === el.dataset.src && item.type === el.dataset.type);
+    if (idx >= 0) el.addEventListener('click', () => lbOpen(items, idx));
+  });
 });
 
 // Language toggle
